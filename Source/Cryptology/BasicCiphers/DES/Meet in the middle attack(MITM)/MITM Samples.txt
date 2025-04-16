@@ -1,0 +1,34 @@
+Example input: 0 247 4095 2808 (in console window)
+
+First  plain, First cipher text ->     0,   247
+Second plain, Second cipher text ->  4095, 2808
+
+Plaintext: 0, Key: 341
+Round 1 output: 48
+Round 2 output: 3105
+Round 3 output: 2168
+Round 4 output: 3631
+Ciphertext: 3631
+
+Plaintext: 1365, Key: 341
+Round 1 output: 1360
+Round 2 output: 1028
+Round 3 output: 285
+Round 4 output: 1867
+Ciphertext: 1867
+
+Plaintext: 2730, Key: 341
+Round 1 output: 2716
+Round 2 output: 1825
+Round 3 output: 2132
+Round 4 output: 1296
+Ciphertext: 1296
+
+Plaintext: 4095, Key: 341
+Round 1 output: 4062
+Round 2 output: 1968
+Round 3 output: 3105
+Round 4 output: 2122
+Ciphertext: 2122
+
+Verification of the above can be done using the programs in Encryption & Decryption Folder.

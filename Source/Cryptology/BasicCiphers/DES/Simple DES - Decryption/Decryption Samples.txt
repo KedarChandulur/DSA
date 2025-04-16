@@ -1,0 +1,7 @@
+Input Range -> 0 to 4095
+
+1) PlainText: 0, Key: 341, Cipher Text : 3631, Final Decrypted Plain Text is: 0
+
+2) PlainText: 4095, Key: 341, Cipher Text : 2122, Final Decrypted Plain Text is: 4095
+
+Verification of the above can be done using the program in Encryption Folder.

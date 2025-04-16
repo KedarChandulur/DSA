@@ -1,0 +1,20 @@
+encrypt(encrypt(0, 170), 341) and checking that it’s 247(Cipher)
+encrypt(encrypt(4095, 170), 341) and checking that it’s 2808(Cipher)
+
+0 247 4095 2808
+
+plaintext_1  = 0
+ciphertext_1 = 247
+plaintext_2  = 4095
+ciphertext_2 = 2808
+
+1)
+0(p) - 170(k) -> 1973(c)
+1973(p) - 341(k) -> 247(c)
+
+2)
+4095(p) - 170(k) -> 464(c)
+464(p) - 341(k) -> 2808(c)
+
+Key 1: 170(Required)
+Key 2: 341(Required)

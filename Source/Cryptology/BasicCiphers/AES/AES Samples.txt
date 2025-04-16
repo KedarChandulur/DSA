@@ -1,0 +1,42 @@
+Encryption/Decrypt is based on AES-128 (AES-128 uses a 128-bit key length to encrypt and decrypt a block of messages.)
+
+Example input: Input is hard coded in main function.
+
+Sample Plaintext Buffer = 0x32, 0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30, 0x8d, 0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34.
+
+Sample Key Buffer = 0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c.
+
+Sample output:
+
+Prints from top to bottom first and then goes to right
+Prints in hex without 0x
+
+Original plaintext
+32 88 31 e0
+43 5a 31 37
+f6 30 98 07
+a8 8d a2 34
+
+After ARK with original key
+19 a0 9a e9
+3d f4 c6 f8
+e3 e2 8d 48
+be 2b 2a 08
+
+After SB
+d4 e0 b8 1e
+27 bf b4 41
+11 98 5d 52
+ae f1 e5 30
+
+After SR
+d4 e0 b8 1e
+bf b4 41 27
+5d 52 11 98
+30 ae f1 e5
+
+After MC
+04 e0 48 28
+66 cb f8 06
+81 19 d3 26
+e5 9a 7a 4c
