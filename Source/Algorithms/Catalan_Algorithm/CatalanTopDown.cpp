@@ -1,7 +1,9 @@
 #include "iostream"
 #include "cassert"
 
-const uint32_t CatalanTopDown(const uint32_t n)
+#include "CatalanTopDown.h"
+
+const uint32_t CatalanTopDown::Calculate(const uint32_t n) const
 {
 	if (n == 0)
 	{
@@ -12,28 +14,26 @@ const uint32_t CatalanTopDown(const uint32_t n)
 
 	for (uint32_t i = 1; i <= n; i++)
 	{
-		sum += CatalanTopDown(i - 1) * CatalanTopDown(n - i);
+		sum += this->Calculate(i - 1) * this->Calculate(n - i);
 	}
 
 	return sum;
 }
 
-void GetInput(uint32_t& n)
+void CatalanTopDown::GetInput(uint32_t& n) const
 {
 	std::cout << "Enter the n value catalan program\n";
 
 	std::cin >> n;
 }
 
-int main()
+const uint32_t CatalanTopDown::GetInput() const
 {
-	uint32_t value;
+	uint32_t n;
 
-	GetInput(value);
+	std::cout << "Enter the n value catalan program\n";
 
-	value = CatalanTopDown(value);
+	std::cin >> n;
 
-	std::cout << "\nNumber of Multiplications are: " << value << std::endl;
-
-	return 0;
+	return n;
 }
