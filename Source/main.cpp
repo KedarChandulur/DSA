@@ -2,8 +2,8 @@
 #include "CatalanTopDown.h"
 #include "CatalanMemoized.h"
 
-#define CATALAN_TOP_DOWN 0
-#define CATALAN_MEMOIZED 0
+#define CATALAN_TOP_DOWN false
+#define CATALAN_MEMOIZED true
 
 int main()
 {
