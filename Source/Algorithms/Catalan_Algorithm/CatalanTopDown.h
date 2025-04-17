@@ -3,7 +3,7 @@
 class CatalanTopDown
 {
 public:
-    CatalanTopDown() = default;
+    CatalanTopDown();
     ~CatalanTopDown() = default;
 
     CatalanTopDown(const CatalanTopDown& other) = delete;
