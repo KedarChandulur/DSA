@@ -1,7 +1,14 @@
 #include "iostream"
 #include "cassert"
 
-const uint32_t CatalanMemoized(const uint32_t n, int32_t arr[])
+#include "CatalanMemoized.h"
+
+CatalanMemoized::CatalanMemoized()
+{
+	std::cout << "\nWelcome to Catalan Memoized Program\n" << std::endl;
+}
+
+const uint32_t CatalanMemoized::Calculate(const uint32_t n, int32_t arr[]) const
 {
 	if (n == 0)
 	{
@@ -17,7 +24,7 @@ const uint32_t CatalanMemoized(const uint32_t n, int32_t arr[])
 
 	for (uint32_t i = 1; i <= n; i++)
 	{
-		sum += CatalanMemoized(i - 1, arr) * CatalanMemoized(n - i, arr);
+		sum += this->Calculate(i - 1, arr) * this->Calculate(n - i, arr);
 	}
 
 	arr[n] = sum;
@@ -25,7 +32,7 @@ const uint32_t CatalanMemoized(const uint32_t n, int32_t arr[])
 	return sum;
 }
 
-void GetInput(int32_t*& A, uint32_t& n)
+void CatalanMemoized::GetInput(int32_t*& A, uint32_t& n) const
 {
 	std::cout << "Enter the n value catalan program\n";
 
@@ -36,21 +43,4 @@ void GetInput(int32_t*& A, uint32_t& n)
 	assert(A != nullptr);
 
 	memset(A, -1, (size_t)(n + 1) * sizeof(*A));
-}
-
-int main()
-{
-	int32_t* arr = nullptr;
-	uint32_t value;
-
-	GetInput(arr, value);
-
-	value = CatalanMemoized(value, arr);
-
-	std::cout << "\nNumber of Multiplications are: " << value << std::endl;
-
-	delete[] arr;
-	arr = nullptr;
-
-	return 0;
 }
