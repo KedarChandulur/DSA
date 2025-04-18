@@ -1,20 +1,30 @@
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <algorithm>
+#include <functional>
+
+#include "MinNoOfBills.h"
+
+MinNoOfBills::MinNoOfBills()
+{
+	std::cout << "\nWelcome to Min No Of Bills Program\n" << std::endl;
+}
 
 // Recursive function to find minimum number of denominations
 // Make sure your array is arranged/sorted in descending order.
-void internalFindMinDenomination(const int target, const std::vector<int>& denomination, std::vector<int>& solution)
+void MinNoOfBills::internalFindMinDenomination(const int target, const std::vector<int>& denominations, std::vector<int>& solution) const
 {
 	// Recursive case: find the largest denomination that is less than or equal to target
 	// and add it to the solution, and then recursively find the minimum number of denominations
 	// for the remaining amount: target - denomination
-	int temp = denomination[0]; // temp holds max denomination
+	int temp = denominations.front(); // temp holds max denomination
 
-	for (int i = 0; i < denomination.size(); i++)
+	for (int i = 0; i < denominations.size(); i++)
 	{
-		if (denomination[i] <= target)
+		if (denominations[i] <= target)
 		{
-			temp = denomination[i]; // temp holds max denomination
+			temp = denominations[i]; // temp holds max denomination
 			break;
 		}
 	}
@@ -25,55 +35,79 @@ void internalFindMinDenomination(const int target, const std::vector<int>& denom
 
 	if (temp > 0)
 	{
-		internalFindMinDenomination(temp, denomination, solution);
+		internalFindMinDenomination(temp, denominations, solution); // While loop can also be use instead of recursion.
 	}
 }
 
-const std::vector<int> FindMinDenomination(const int target, const std::vector<int>& denomination)
+const std::vector<int> MinNoOfBills::FindMinDenomination(const int target, const std::vector<int>& denominations) const
 {
-	std::vector<int> denominationCopy(denomination);
-	std::reverse(denominationCopy.begin(), denominationCopy.end());
+	std::vector<int> denominationsCopy(denominations);
+	
+	std::sort(denominationsCopy.begin(), denominationsCopy.end(), std::greater<int>());
 
 	std::vector<int> solution;
-	solution.reserve(denomination.size());
+	solution.reserve(denominationsCopy.size());
 
-	internalFindMinDenomination(target, denominationCopy, solution);
+	internalFindMinDenomination(target, denominationsCopy, solution);
 
 	return solution;
 }
 
-const std::vector<int> FindMinDenomination(const int target, std::vector<int>& denomination)
+const bool MinNoOfBills::GetInput(std::vector<int>& denominations, int& target) const
 {
-	std::reverse(denomination.begin(), denomination.end());
+	std::cout << "\nExample Input for target: \n";
+    std::cout << "122\n";
 
-	std::vector<int> solution;
-	solution.reserve(denomination.size());
+	std::cout << "Enter your target:\n";
 
-	internalFindMinDenomination(target, denomination, solution);
+    std::string input;
+    std::getline(std::cin, input);
+    std::istringstream iss(input);
 
-	return solution;
-}
+    if (!(iss >> target))
+    {
+        std::cout << "Invalid input. Please enter a positive integer." << std::endl;
+        return false;
+    }
 
-int main()
-{
-	int target = 122;
+	std::cout << "\nExample Input for denomination size: \n";
+    std::cout << "8\n";
 
-	std::cout << "Enter your target: ";
-	std::cin >> target;
+    std::cout << "Enter your denomination size:\n";
 
-	const std::vector<int> denomination = { 1, 4, 7, 13, 28, 52, 91, 365 };
+    input.clear();
+    std::getline(std::cin, input);
+    iss.clear();
+    iss.str(input);
 
-	const std::vector<int> solution = FindMinDenomination(target, denomination);
+	uint32_t denominationSize = 0;
+	
+    if (!(iss >> denominationSize))
+    {
+        std::cout << "Invalid input. Please enter the size again." << std::endl;
+        return false;
+    }
 
-	std::cout << "Minimum number bills required: " << solution.size() << std::endl;
-	std::cout << "Following is minimal number of bills for " << target << ": ";
+	std::cout << "\nExample Input for denomination values: \n";
+    std::cout << "1 4 7 13 28 52 91 365 \n";
 
-	for (int i = 0; i < solution.size(); i++)
-	{
-		std::cout << solution[i] << " ";
-	}
+    std::cout << "Enter your denomination values:\n";
 
-	std::cout << std::endl;
+	input.clear();
+    std::getline(std::cin, input);
+    iss.clear();
+    iss.str(input);
 
-	return 0;
+	denominations.resize(denominationSize);
+
+    for (uint32_t i = 0; i < denominationSize; ++i)
+    {
+        if (!(iss >> denominations[i]))
+        {
+            std::cout << "Invalid input. Please enter integers separated by white space." << std::endl;
+            return false;
+        }
+    }
+
+    return true;
 }
