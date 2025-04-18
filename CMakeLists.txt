@@ -6,9 +6,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(dsa_exec 
-    Source/main.cpp 
-    Source/Algorithms/Catalan_Algorithm/CatalanTopDown.cpp
-    Source/Algorithms/Catalan_Algorithm/CatalanMemoized.cpp
+    ${CMAKE_SOURCE_DIR}/Source/main.cpp 
+    ${CMAKE_SOURCE_DIR}/Source/Algorithms/Catalan_Algorithm/CatalanTopDown.cpp
+    ${CMAKE_SOURCE_DIR}/Source/Algorithms/Catalan_Algorithm/CatalanMemoized.cpp
+    ${CMAKE_SOURCE_DIR}/Source/Algorithms/Greedy_Algorithm/MaxProfit.cpp
 )
 
-target_include_directories(dsa_exec PUBLIC ${CMAKE_SOURCE_DIR}/Source/Algorithms/Catalan_Algorithm)
+target_include_directories(dsa_exec 
+    PUBLIC 
+    ${CMAKE_SOURCE_DIR}/Source/Algorithms/Catalan_Algorithm
+    ${CMAKE_SOURCE_DIR}/Source/Algorithms/Greedy_Algorithm
+    )
