@@ -1,15 +1,18 @@
 #include <iostream>
 #include <vector>
+#include <cassert>
 
 #include "CatalanTopDown.h"
 #include "CatalanMemoized.h"
 #include "MaxProfit.h"
 #include "MinNoOfBills.h"
+#include "BasicNumbersSort.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
 #define MAX_PROFIT_TEST false
-#define MIN_NO_OF_BILLS_TEST true
+#define MIN_NO_OF_BILLS_TEST false
+#define QUICK_SORT_TEST true
 
 int main()
 {
@@ -80,6 +83,7 @@ int main()
 
     // --- Max Profit example ---
 
+
     // --- Min No Of Bills example ---
 
     #if MIN_NO_OF_BILLS_TEST
@@ -111,6 +115,47 @@ int main()
     #endif
 
     // --- Min No Of Bills example ---
+
+
+    // --- Quick Sort example ---
+
+    #if QUICK_SORT_TEST
+    {
+        BasicNumbersSort basicNumbersSort;
+
+	    int32_t* A = nullptr;
+	    int32_t n = 0;
+
+	    basicNumbersSort.GetInput(A, n);
+
+	    assert(A != nullptr);
+
+	    printf("\nInput:\n");
+
+	    for (int i = 0; i < n; ++i)
+	    {
+	    	printf("%d ", A[i]);
+	    }
+
+	    printf("\n");
+    
+	    basicNumbersSort.QuickSort(A, n);
+
+	    printf("\nOutput:\n");
+
+	    for (int i = 0; i < n; ++i)
+	    {
+	    	printf("%d ", A[i]);
+	    }
+
+	    printf("\n");
+
+	    delete[] A;
+	    A = nullptr;
+    }
+    #endif
+
+    // --- Quick Sort example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
