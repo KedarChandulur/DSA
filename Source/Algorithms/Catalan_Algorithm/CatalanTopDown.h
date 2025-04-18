@@ -3,14 +3,14 @@
 class CatalanTopDown
 {
 public:
-    CatalanTopDown() = default;
+    CatalanTopDown();
     ~CatalanTopDown() = default;
 
-    CatalanTopDown(const CatalanTopDown& other) = default;
-    CatalanTopDown& operator=(const CatalanTopDown& other) = default;
+    CatalanTopDown(const CatalanTopDown& other) = delete;
+    CatalanTopDown& operator=(const CatalanTopDown& other) = delete;
 
-    CatalanTopDown(CatalanTopDown&& other) = default;
-    CatalanTopDown& operator=(CatalanTopDown&& other) = default;
+    CatalanTopDown(CatalanTopDown&& other) = delete;
+    CatalanTopDown& operator=(CatalanTopDown&& other) = delete;
 
     void GetInput(uint32_t& n) const;
     const uint32_t GetInput() const;

@@ -3,6 +3,11 @@
 
 #include "CatalanTopDown.h"
 
+CatalanTopDown::CatalanTopDown()
+{
+	std::cout << "\nWelcome to Catalan Top Down Program\n" << std::endl;
+}
+
 const uint32_t CatalanTopDown::Calculate(const uint32_t n) const
 {
 	if (n == 0)
