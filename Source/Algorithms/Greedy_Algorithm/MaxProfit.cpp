@@ -24,7 +24,7 @@ const bool MaxProfit::GetInput(std::vector<std::vector<uint32_t>>& arr)
 
     if (!(iss >> m_rows))
     {
-        std::cout << "Invalid input. Please enter integers separated by white space." << std::endl;
+        std::cout << "Invalid input. Please enter a positive integer." << std::endl;
         return false;
     }
 
@@ -37,7 +37,7 @@ const bool MaxProfit::GetInput(std::vector<std::vector<uint32_t>>& arr)
 
     if (!(iss >> m_cols))
     {
-        std::cout << "Invalid input. Please enter integers separated by white space." << std::endl;
+        std::cout << "Invalid input. Please enter a positive integer." << std::endl;
         return false;
     }
 
@@ -52,8 +52,6 @@ const bool MaxProfit::GetInput(std::vector<std::vector<uint32_t>>& arr)
     std::getline(std::cin, input);
     iss.clear();
     iss.str(input);
-
-    int temp = 0;
 
     std::vector<std::vector<uint32_t>> temporary(m_rows, std::vector<uint32_t>(m_cols));
 
