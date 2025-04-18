@@ -1,9 +1,13 @@
 #include <iostream>
+#include <vector>
+
 #include "CatalanTopDown.h"
 #include "CatalanMemoized.h"
+#include "MaxProfit.h"
 
-#define CATALAN_TOP_DOWN false
-#define CATALAN_MEMOIZED true
+#define CATALAN_TOP_DOWN_TEST false
+#define CATALAN_MEMOIZED_TEST false
+#define MAX_PROFIT_TEST true
 
 int main()
 {
@@ -11,7 +15,7 @@ int main()
 
     // --- Catalan Top Down example ---
 
-    #if CATALAN_TOP_DOWN
+    #if CATALAN_TOP_DOWN_TEST
     {
         CatalanTopDown catalanTopDown;
 
@@ -28,7 +32,7 @@ int main()
 
     // --- Catalan Memoized example ---
 
-    #if CATALAN_MEMOIZED
+    #if CATALAN_MEMOIZED_TEST
     {
         CatalanMemoized catalanMemoized;
 
@@ -47,6 +51,32 @@ int main()
     #endif
 
     // --- Catalan Memoized example ---
+
+
+    // --- Max Profit example ---
+
+    #if MAX_PROFIT_TEST
+    {
+        MaxProfit maxProfit;
+
+        std::vector<std::vector<uint32_t>> arr;
+
+        if(maxProfit.GetInput(arr))
+        {
+            maxProfit.PrintMatrix(arr, "Original Matrix");
+
+            const uint32_t maximumProfit = maxProfit.Calculate(arr);
+    
+            std::cout << std::endl << "Maximum Profit: " << maximumProfit << std::endl;
+        }
+        else
+        {
+            std::cout << "\nMax profit program failed\n";
+        }
+    }
+    #endif
+
+    // --- Max Profit example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
