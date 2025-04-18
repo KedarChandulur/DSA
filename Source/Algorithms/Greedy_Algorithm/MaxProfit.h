@@ -20,19 +20,6 @@ public:
 
     const uint32_t Calculate(const std::vector<std::vector<uint32_t>>& arr) const;
 
-    void SetRowCount(const uint32_t value);
-    void SetColCount(const uint32_t value);
-
-    inline const uint32_t GetRowCount() const
-    {
-        return m_rows;
-    }
-
-    inline const uint32_t GetColCount() const
-    {
-        return m_cols;
-    }
-
     void PrintMatrix(const std::vector<std::vector<uint32_t>>& arr, const char* message, uint32_t rows = 0, uint32_t cols = 0) const;
 
 private:

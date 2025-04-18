@@ -11,10 +11,11 @@ public:
 
     MinNoOfBills(MinNoOfBills&& other) = delete;
     MinNoOfBills& operator=(MinNoOfBills&& other) = delete;
-
-    void internalFindMinDenomination(const int target, const std::vector<int>& denominations, std::vector<int>& solution) const;
     
     const std::vector<int> FindMinDenomination(const int target, const std::vector<int>& denominations) const;
 
     const bool GetInput(std::vector<int>& denominations, int& target) const;
+
+private:
+    void internalFindMinDenomination(const int target, const std::vector<int>& denominations, std::vector<int>& solution) const;
 };
