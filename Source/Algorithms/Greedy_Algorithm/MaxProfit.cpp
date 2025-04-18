@@ -92,16 +92,6 @@ const uint32_t MaxProfit::Calculate(const std::vector<std::vector<uint32_t>>& ar
     return arrTemp[m_rows][m_cols];
 }
 
-void MaxProfit::SetRowCount(const uint32_t value)
-{
-    this->m_rows = value;
-}
-
-void MaxProfit::SetColCount(const uint32_t value)
-{
-    this->m_cols = value;
-}
-
 void MaxProfit::PrintMatrix(const std::vector<std::vector<uint32_t>>& arr, const char* message, uint32_t rows, uint32_t cols) const
 {
     rows = (rows == 0) ? m_rows : rows;
