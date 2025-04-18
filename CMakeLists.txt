@@ -11,10 +11,12 @@ add_executable(dsa_exec
     ${CMAKE_SOURCE_DIR}/Source/Algorithms/Catalan_Algorithm/CatalanMemoized.cpp
     ${CMAKE_SOURCE_DIR}/Source/Algorithms/Greedy_Algorithm/MaxProfit.cpp
     ${CMAKE_SOURCE_DIR}/Source/Algorithms/Greedy_Algorithm/MinNoOfBills.cpp
+    ${CMAKE_SOURCE_DIR}/Source/Algorithms/Quick_Sort/BasicNumbersSort.cpp
 )
 
 target_include_directories(dsa_exec 
     PUBLIC 
     ${CMAKE_SOURCE_DIR}/Source/Algorithms/Catalan_Algorithm
     ${CMAKE_SOURCE_DIR}/Source/Algorithms/Greedy_Algorithm
+    ${CMAKE_SOURCE_DIR}/Source/Algorithms/Quick_Sort
     )
