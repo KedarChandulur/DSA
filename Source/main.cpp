@@ -7,12 +7,14 @@
 #include "MaxProfit.h"
 #include "MinNoOfBills.h"
 #include "BasicNumbersSort.h"
+#include "Splitmultiply.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
 #define MAX_PROFIT_TEST false
 #define MIN_NO_OF_BILLS_TEST false
-#define QUICK_SORT_TEST true
+#define QUICK_SORT_TEST false
+#define SPLIT_MULTIPLY_TEST true
 
 int main()
 {
@@ -156,6 +158,27 @@ int main()
     #endif
 
     // --- Quick Sort example ---
+
+
+    // --- Quick Sort example ---
+
+    #if SPLIT_MULTIPLY_TEST
+    {
+        Splitmultiply splitMultiply;
+
+        int64_t x = 0;
+        int64_t y = 0;
+    
+        splitMultiply.GetInput(x, y);
+    
+        const int64_t result = splitMultiply.Calculate(x, y, splitMultiply.GetDigits(x, y));
+    
+        std::cout << "\nProduct of x and y: " << result << "\n";
+    }
+    #endif
+    
+    // --- Quick Sort example ---
+
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
