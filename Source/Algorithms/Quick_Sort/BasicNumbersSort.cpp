@@ -1,14 +1,23 @@
 #include <iostream>
 #include <cassert>
 
-void Swap(int32_t* first, int32_t* last)
+#include "BasicNumbersSort.h"
+
+BasicNumbersSort::BasicNumbersSort()
+{
+	srand((uint32_t)time(NULL));
+
+	std::cout << "\nWelcome to Basic Numbers Sort Program\n" << std::endl;
+}
+
+void BasicNumbersSort::Swap(int32_t* first, int32_t* last) const
 {
 	int32_t temp = *first;
     *first = *last;
     *last = temp;
 }
 
-const int32_t Partition(int32_t A[], const int32_t startingIndex, const int32_t n, const int32_t p)
+const int32_t BasicNumbersSort::Partition(int32_t A[], const int32_t startingIndex, const int32_t n, const int32_t p) const
 {
 	Swap(&A[p], &A[n]);
 
@@ -28,7 +37,7 @@ const int32_t Partition(int32_t A[], const int32_t startingIndex, const int32_t 
 	return l + 1;
 }
 
-void internalQuickSort(int32_t A[], const int32_t startingIndex, const int32_t n)
+void BasicNumbersSort::internalQuickSort(int32_t A[], const int32_t startingIndex, const int32_t n) const
 {
 	if (n > 1 && startingIndex < n)
 	{
@@ -40,13 +49,18 @@ void internalQuickSort(int32_t A[], const int32_t startingIndex, const int32_t n
 	}
 }
 
-void QuickSort(int32_t A[], const int32_t n)
+void BasicNumbersSort::QuickSort(int32_t A[], const int32_t n) const
 {
 	internalQuickSort(A, 0, n - 1);
 }
 
-void GetInput(int32_t*& A, int32_t& n)
+void BasicNumbersSort::GetInput(int32_t*& A, int32_t& n) const
 {
+	std::cout << "Example input: \n";
+	std::cout << "7 56 28 14 22 42 43 54\n";
+
+	std::cout << "\nEnter the size of array, followed by the integers with a space after each integer.\n";
+
 	int32_t* ATemp = A;
 	int32_t input = 0;
 
@@ -68,44 +82,4 @@ void GetInput(int32_t*& A, int32_t& n)
 			*ATemp++ = input;
 		}
 	}
-}
-
-int main()
-{
-	srand((uint32_t)time(NULL));
-
-	std::cout << "Enter the size of array, followed by the integers with a space after each integer.\n";
-
-	// Example input: 7 56 28 14 22 42 43 54
-	int32_t* A = nullptr;
-	int32_t n = 0;
-
-	GetInput(A, n);
-
-	printf("\nInput:\n");
-
-	for (int i = 0; i < n; ++i)
-	{
-		printf("%d ", A[i]);
-	}
-
-	printf("\n");
-
-	assert(A != nullptr);
-	
-	QuickSort(A, n);
-
-	printf("\nOutput:\n");
-
-	for (int i = 0; i < n; ++i)
-	{
-		printf("%d ", A[i]);
-	}
-
-	printf("\n");
-
-	delete[] A;
-	A = nullptr;
-
-	return 0;
 }
