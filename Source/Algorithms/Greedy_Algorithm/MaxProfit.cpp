@@ -110,3 +110,21 @@ void MaxProfit::PrintMatrix(const std::vector<std::vector<uint32_t>>& arr, const
         std::cout << std::endl;
     }
 }
+
+void MaxProfit::RunDemo()
+{
+    std::vector<std::vector<uint32_t>> arr;
+
+    if(this->GetInput(arr))
+    {
+        this->PrintMatrix(arr, "Original Matrix");
+        
+        const uint32_t maximumProfit = this->Calculate(arr);
+
+        std::cout << std::endl << "Maximum Profit: " << maximumProfit << std::endl;
+    }
+    else
+    {
+        std::cout << "\nMax profit program failed\n";
+    }
+}
