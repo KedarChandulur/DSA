@@ -138,18 +138,6 @@ AESEncryptRound::AESEncryptRound()
 	std::cout << "\nWelcome to AES Encrypt Round Program\n" << std::endl;
 }
 
-void AESEncryptRound::RunDemo() const
-{
-    PrintFromBuffer("Original plaintext\n", plaintextBuffer);
-    //PrintFromBuffer("My Key text value: ", keyBuffer);
-
-    PerformBitWiseXOR(plaintextBuffer, keyBuffer, resultBuffer);
-
-    PerformSubBytes(resultBuffer);
-    PerformShiftRows(resultBuffer);
-    PerformMixColumns(resultBuffer);
-}
-
 void AESEncryptRound::PrintFromBuffer(const char* headerText, unsigned char* buffer) const
 {
     std::cout << headerText;
@@ -250,4 +238,22 @@ void AESEncryptRound::PerformMixColumns(unsigned char* resultBuffer) const
     }
 
     PrintFromBuffer("After MC\n", resultBuffer);
+}
+
+void AESEncryptRound::RunDemo() const
+{
+    std::cout << "Encryption/Decrypt is based on AES-128" << std::endl;
+    
+    std::cout << "Prints from top to bottom first and then goes to right" << std::endl;
+
+    std::cout << "Prints in hex without 0x\n" << std::endl;
+
+    this->PrintFromBuffer("Original plaintext\n", plaintextBuffer);
+    //this->PrintFromBuffer("My Key text value: ", keyBuffer);
+
+    this->PerformBitWiseXOR(plaintextBuffer, keyBuffer, resultBuffer);
+
+    this->PerformSubBytes(resultBuffer);
+    this->PerformShiftRows(resultBuffer);
+    this->PerformMixColumns(resultBuffer);
 }
