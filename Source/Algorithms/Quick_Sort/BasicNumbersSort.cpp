@@ -83,3 +83,34 @@ void BasicNumbersSort::GetInput(int32_t*& A, int32_t& n) const
 		}
 	}
 }
+
+void BasicNumbersSort::RunDemo() const
+{
+	int32_t* A = nullptr;
+	int32_t n = 0;
+
+	this->GetInput(A, n);
+
+	assert(A != nullptr);
+	printf("\nInput:\n");
+
+	for (int i = 0; i < n; ++i)
+	{
+		printf("%d ", A[i]);
+	}
+
+	printf("\n");
+
+	this->QuickSort(A, n);
+
+	printf("\nOutput:\n");
+
+	for (int i = 0; i < n; ++i)
+	{
+		printf("%d ", A[i]);
+	}
+
+	printf("\n");
+	delete[] A;
+	A = nullptr;
+}

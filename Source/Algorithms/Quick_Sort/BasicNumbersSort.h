@@ -16,6 +16,8 @@ public:
 
     void GetInput(int32_t*& A, int32_t& n) const;
 
+    void RunDemo() const;
+
 private:
     void Swap(int32_t* first, int32_t* last) const;
 
