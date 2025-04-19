@@ -111,3 +111,28 @@ const bool MinNoOfBills::GetInput(std::vector<int>& denominations, int& target) 
 
     return true;
 }
+
+void MinNoOfBills::RunDemo() const
+{
+    int target = 122;
+    std::vector<int> denomination;
+    
+    if(this->GetInput(denomination, target))
+    {
+        const std::vector<int> solution = this->FindMinDenomination(target, denomination);
+
+        std::cout << "\nMinimum number bills required: " << solution.size() << std::endl;
+        std::cout << "Following is minimal number of bills for " << target << ": ";
+        
+        for (int i = 0; i < solution.size(); i++)
+        {
+            std::cout << solution[i] << " ";
+        }
+    
+        std::cout << std::endl;
+    }
+    else
+    {
+        std::cout << "\nMin No Of Bills program failed\n";
+    }
+}
