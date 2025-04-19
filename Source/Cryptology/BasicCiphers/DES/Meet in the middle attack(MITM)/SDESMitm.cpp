@@ -1,6 +1,8 @@
 #include <iostream>
 #include <unordered_map>
 
+#include "SDESMitm.h"
+
 //static uint8_t s1BoxArray1[] = { 0b101, 0b010, 0b001, 0b110, 0b011, 0b100, 0b111, 0b000 };
 //static uint8_t s1BoxArray2[] = { 0b001, 0b100, 0b110, 0b010, 0b000, 0b111, 0b101, 0b011 };
 //static uint8_t s2BoxArray1[] = { 0b100, 0b000, 0b110, 0b101, 0b111, 0b001, 0b011, 0b010 };
@@ -11,14 +13,38 @@ static uint8_t s1BoxArray2[] = { 1, 4, 6, 2, 0, 7, 5, 3 };
 static uint8_t s2BoxArray1[] = { 4, 0, 6, 5, 7, 1, 3, 2 };
 static uint8_t s2BoxArray2[] = { 5, 3, 0, 7, 6, 2, 1, 4 };
 
-void Swap(uint8_t& lValue, uint8_t& rValue)
+SDES_MITM::SDES_MITM()
+{
+	std::cout << "\nWelcome to Simple DES Meet in the Middle Program\n" << std::endl;
+}
+
+void SDES_MITM::GetInput(uint16_t& plaintext_1, uint16_t& ciphertext_1, uint16_t& plaintext_2, uint16_t& ciphertext_2) const
+{
+	std::cout << "Example plain text 1 input : 0\n";
+	std::cout << "Enter your input:\n";
+	std::cin >> plaintext_1;
+
+	std::cout << "Example cipher text 1 input : 247\n";
+	std::cout << "Enter your input:\n";
+	std::cin >> ciphertext_1;
+	
+	std::cout << "Example plain text 2 input : 4095\n";
+	std::cout << "Enter your input:\n";
+	std::cin >> plaintext_2;
+	
+	std::cout << "Example cipher text 2 input : 2808\n";
+	std::cout << "Enter your input:\n";
+	std::cin >> ciphertext_2;
+}
+
+void SDES_MITM::Swap(uint8_t& lValue, uint8_t& rValue) const
 {
 	uint8_t temp = lValue;
 	lValue = rValue;
 	rValue = temp;
 }
 
-uint8_t ExpanderFunction(uint8_t& RValue)
+uint8_t SDES_MITM::ExpanderFunction(uint8_t& RValue) const
 {
 	char bit1 = (RValue & 0b100000) >> 5;
 	char bit2 = (RValue & 0b010000) >> 4;
@@ -32,7 +58,7 @@ uint8_t ExpanderFunction(uint8_t& RValue)
 	return expandedR;
 }
 
-void S1Box(uint8_t& l4BitValue)
+void SDES_MITM::S1Box(uint8_t& l4BitValue) const
 {
 	uint8_t fourBitValue = l4BitValue & 0b1111;
 
@@ -50,7 +76,7 @@ void S1Box(uint8_t& l4BitValue)
 	}
 }
 
-void S2Box(uint8_t& r4BitValue)
+void SDES_MITM::S2Box(uint8_t& r4BitValue) const
 {
 	uint8_t fourBitValue = r4BitValue & 0b1111;
 
@@ -68,7 +94,7 @@ void S2Box(uint8_t& r4BitValue)
 	}
 }
 
-void GenerateSubKeys(uint16_t* subkeys, const uint16_t& key)
+void SDES_MITM::GenerateSubKeys(uint16_t* subkeys, const uint16_t& key) const
 {
 	subkeys[0] = (key & 0b111111110) >> 1;
 	subkeys[1] = ((key & 0b011111111) << 0) + ((key & 0b000000000) >> 9);
@@ -76,7 +102,7 @@ void GenerateSubKeys(uint16_t* subkeys, const uint16_t& key)
 	subkeys[3] = ((key & 0b000111111) << 2) + ((key & 0b110000000) >> 7);
 }
 
-void PerformRound(uint8_t& lValue, uint8_t& RValue, uint16_t* subkeys, uint16_t& output, uint16_t subkeyNumber)
+void SDES_MITM::PerformRound(uint8_t& lValue, uint8_t& RValue, uint16_t* subkeys, uint16_t& output, uint16_t subkeyNumber) const
 {
 	uint8_t r8BitValue = ExpanderFunction(RValue);
 
@@ -103,7 +129,7 @@ void PerformRound(uint8_t& lValue, uint8_t& RValue, uint16_t* subkeys, uint16_t&
 	output += RValue;
 }
 
-uint16_t PerformEncryptionRoundOperations(uint8_t& lValue, uint8_t& RValue, uint16_t& key)
+uint16_t SDES_MITM::PerformEncryptionRoundOperations(uint8_t& lValue, uint8_t& RValue, uint16_t& key) const
 {
 	uint16_t output = 0;
 
@@ -119,7 +145,7 @@ uint16_t PerformEncryptionRoundOperations(uint8_t& lValue, uint8_t& RValue, uint
 	return output;
 }
 
-uint16_t PerformDecryptionRoundOperations(uint8_t& lValue, uint8_t& RValue, uint16_t& key)
+uint16_t SDES_MITM::PerformDecryptionRoundOperations(uint8_t& lValue, uint8_t& RValue, uint16_t& key) const
 {
 	uint16_t output = 0;
 
@@ -135,14 +161,14 @@ uint16_t PerformDecryptionRoundOperations(uint8_t& lValue, uint8_t& RValue, uint
 	return output;
 }
 
-void Encrypt(uint16_t plaintext, uint16_t key, uint16_t& output)
+void SDES_MITM::Encrypt(uint16_t plaintext, uint16_t key, uint16_t& output) const
 {
 	uint8_t lValue = (plaintext >> 6) & 0x3F;
 	uint8_t rValue = (plaintext) & 0x3F;
 	output = PerformEncryptionRoundOperations(lValue, rValue, key);
 }
 
-void Decrypt(uint16_t ciphertext, uint16_t key, uint16_t& output)
+void SDES_MITM::Decrypt(uint16_t ciphertext, uint16_t key, uint16_t& output) const
 {
 	uint8_t lValue = (ciphertext >> 6) & 0x3F;
 	uint8_t rValue = (ciphertext) & 0x3F;
@@ -158,7 +184,7 @@ void Decrypt(uint16_t ciphertext, uint16_t key, uint16_t& output)
 
 }
 
-void Perform_MITM(uint16_t plaintext, uint16_t ciphertext, std::unordered_multimap<uint16_t, uint16_t>& matchingPairs)
+void SDES_MITM::Perform_MITM(uint16_t plaintext, uint16_t ciphertext, std::unordered_multimap<uint16_t, uint16_t>& matchingPairs) const
 {
 	const uint16_t maxValue = 512;
 	uint16_t temp = 0;
@@ -195,23 +221,23 @@ void Perform_MITM(uint16_t plaintext, uint16_t ciphertext, std::unordered_multim
 	}
 }
 
-int main()
+void SDES_MITM::RunDemo() const
 {
 	// 0 247 4095 2808
 
 	uint16_t plaintext_1 = 0; // 0
 	uint16_t ciphertext_1 = 247; // 247
-	std::unordered_multimap<uint16_t, uint16_t> matchingPairs_1;
 
 	uint16_t plaintext_2 = 4095; // 4095
 	uint16_t ciphertext_2 = 2808; // 2808
+
+	this->GetInput(plaintext_1, ciphertext_1, plaintext_2, ciphertext_2);
+
+	std::unordered_multimap<uint16_t, uint16_t> matchingPairs_1;
 	std::unordered_multimap<uint16_t, uint16_t> matchingPairs_2;
 
-	std::cout << "Please, enter your input: \n";
-	std::cin >> plaintext_1 >> ciphertext_1 >> plaintext_2 >> ciphertext_2;
-
-	Perform_MITM(plaintext_1, ciphertext_1, matchingPairs_1);
-	Perform_MITM(plaintext_2, ciphertext_2, matchingPairs_2);
+	this->Perform_MITM(plaintext_1, ciphertext_1, matchingPairs_1);
+	this->Perform_MITM(plaintext_2, ciphertext_2, matchingPairs_2);
 
 	std::unordered_multimap<uint16_t, uint16_t>::const_iterator result;
 	std::unordered_multimap<uint16_t, uint16_t> matchingPairs;
@@ -248,6 +274,4 @@ int main()
 			std::cout << "Key 2: " << iteration->second << "\n";
 		}
 	}
-
-	return 0;
 }
