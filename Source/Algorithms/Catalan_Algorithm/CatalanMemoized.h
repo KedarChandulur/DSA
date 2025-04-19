@@ -15,4 +15,6 @@ public:
     void GetInput(int32_t*& A, uint32_t& n) const;
 
     const uint32_t Calculate(const uint32_t n, int32_t arr[]) const;
+
+    void RunDemo() const;
 };

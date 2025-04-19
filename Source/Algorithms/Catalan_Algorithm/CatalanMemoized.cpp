@@ -44,3 +44,17 @@ void CatalanMemoized::GetInput(int32_t*& A, uint32_t& n) const
 
 	memset(A, -1, (size_t)(n + 1) * sizeof(*A));
 }
+
+void CatalanMemoized::RunDemo() const
+{
+	int32_t* arr = nullptr;
+	uint32_t value;
+
+	this->GetInput(arr, value);
+	value = this->Calculate(value, arr);
+
+	std::cout << "\nNumber of Multiplications are: " << value << std::endl;
+	
+	delete[] arr;
+	arr = nullptr;
+}
