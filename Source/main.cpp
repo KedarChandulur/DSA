@@ -8,13 +8,15 @@
 #include "MinNoOfBills.h"
 #include "BasicNumbersSort.h"
 #include "Splitmultiply.h"
+#include "AESEncryptRound.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
-#define MAX_PROFIT_TEST false
-#define MIN_NO_OF_BILLS_TEST false
-#define QUICK_SORT_TEST false
-#define SPLIT_MULTIPLY_TEST true
+#define MAX_PROFIT_TEST       false
+#define MIN_NO_OF_BILLS_TEST  false
+#define QUICK_SORT_TEST       false
+#define SPLIT_MULTIPLY_TEST   false
+#define AES_TEST              true
 
 int main()
 {
@@ -160,7 +162,7 @@ int main()
     // --- Quick Sort example ---
 
 
-    // --- Quick Sort example ---
+    // --- Split Multiply example ---
 
     #if SPLIT_MULTIPLY_TEST
     {
@@ -177,8 +179,24 @@ int main()
     }
     #endif
     
-    // --- Quick Sort example ---
+    // --- Split Multiply example ---
 
+    // --- AES example ---
+
+    #if AES_TEST
+    {
+        AESEncryptRound aesEncryptRound;
+        std::cout << "Encryption/Decrypt is based on AES-128" << std::endl;
+    
+        std::cout << "Prints from top to bottom first and then goes to right" << std::endl;
+    
+        std::cout << "Prints in hex without 0x\n" << std::endl;
+    
+        aesEncryptRound.RunDemo();
+    }
+    #endif
+
+    // --- AES example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
