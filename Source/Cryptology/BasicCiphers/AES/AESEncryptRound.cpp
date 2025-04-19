@@ -1,6 +1,8 @@
 #include <iostream>
 #include <__msvc_int128.hpp>
 
+#include "AESEncryptRound.h"
+
 static const uint16_t columnSize = 4;
 static const uint16_t buffersize = columnSize * columnSize;
 static const uint16_t arrayBufferSize = buffersize * buffersize;
@@ -113,7 +115,42 @@ static const uint8_t ByteSub[arrayBufferSize] =
         0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
 };
 
-void PrintFromBuffer(const char* headerText, unsigned char* buffer)
+static unsigned char plaintextBuffer[buffersize] = { 0x32, 0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30, 0x8d,
+    0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34 };
+
+static unsigned char keyBuffer[buffersize] = { 0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,
+0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c };
+
+static unsigned char resultBuffer[buffersize] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+// static constexpr std::vector<unsigned char> plaintextBuffer = { 0x32, 0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30, 0x8d,
+//                                                                0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34 };
+
+// static constexpr std::vector<unsigned char> keyBuffer = { 0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,
+//                                                           0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c };
+
+// static constexpr std::vector<unsigned char> resultBuffer = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+//                                                              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+
+AESEncryptRound::AESEncryptRound()
+{
+	std::cout << "\nWelcome to AES Encrypt Round Program\n" << std::endl;
+}
+
+void AESEncryptRound::RunDemo() const
+{
+    PrintFromBuffer("Original plaintext\n", plaintextBuffer);
+    //PrintFromBuffer("My Key text value: ", keyBuffer);
+
+    PerformBitWiseXOR(plaintextBuffer, keyBuffer, resultBuffer);
+
+    PerformSubBytes(resultBuffer);
+    PerformShiftRows(resultBuffer);
+    PerformMixColumns(resultBuffer);
+}
+
+void AESEncryptRound::PrintFromBuffer(const char* headerText, unsigned char* buffer) const
 {
     std::cout << headerText;
 
@@ -154,7 +191,7 @@ void PrintFromBuffer(const char* headerText, unsigned char* buffer)
     std::cout << std::endl;
 }
 
-void PerformBitWiseXOR(unsigned char* plaintextBuffer, unsigned char* keyBuffer, unsigned char* resultBuffer)
+void AESEncryptRound::PerformBitWiseXOR(unsigned char* plaintextBuffer, unsigned char* keyBuffer, unsigned char* resultBuffer) const
 {
     for (int i = 0; i < buffersize; i++)
     {
@@ -164,7 +201,7 @@ void PerformBitWiseXOR(unsigned char* plaintextBuffer, unsigned char* keyBuffer,
     PrintFromBuffer("After ARK with original key\n", resultBuffer);
 }
 
-void PerformSubBytes(unsigned char* resultBuffer)
+void AESEncryptRound::PerformSubBytes(unsigned char* resultBuffer) const
 {
     for (int i = 0; i < buffersize; i++) 
     {
@@ -174,7 +211,7 @@ void PerformSubBytes(unsigned char* resultBuffer)
     PrintFromBuffer("After SB\n", resultBuffer);
 }
 
-void PerformShiftRows(unsigned char* resultBuffer)
+void AESEncryptRound::PerformShiftRows(unsigned char* resultBuffer) const
 {
     unsigned char tmp = resultBuffer[1];
     resultBuffer[1] = resultBuffer[5];
@@ -198,7 +235,7 @@ void PerformShiftRows(unsigned char* resultBuffer)
     PrintFromBuffer("After SR\n", resultBuffer);
 }
 
-void PerformMixColumns(unsigned char* resultBuffer)
+void AESEncryptRound::PerformMixColumns(unsigned char* resultBuffer) const
 {
     unsigned char tmp[buffersize];
     for (int i = 0; i < columnSize; i++) {
@@ -213,31 +250,4 @@ void PerformMixColumns(unsigned char* resultBuffer)
     }
 
     PrintFromBuffer("After MC\n", resultBuffer);
-}
-
-int main() {
-    unsigned char plaintextBuffer[buffersize] = { 0x32, 0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30, 0x8d,
-                                                  0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34 };
-
-    unsigned char keyBuffer[buffersize] = { 0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6,
-                                            0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c };
-
-    unsigned char resultBuffer[buffersize] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-                                               0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-
-    std::cout << "Encryption/Decrypt is based on AES-128" << std::endl;
-
-    std::cout << "Prints from top to bottom first and then goes to right" << std::endl;
-
-    std::cout << "Prints in hex without 0x\n" << std::endl;
-
-    PrintFromBuffer("Original plaintext\n", plaintextBuffer);
-    //PrintFromBuffer("My Key text value: ", keyBuffer);
-
-    PerformBitWiseXOR(plaintextBuffer, keyBuffer, resultBuffer);
-    PerformSubBytes(resultBuffer);
-    PerformShiftRows(resultBuffer);
-    PerformMixColumns(resultBuffer);
-
-    return 0;
 }
