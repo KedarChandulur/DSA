@@ -42,3 +42,12 @@ const uint32_t CatalanTopDown::GetInput() const
 
 	return n;
 }
+
+void CatalanTopDown::RunDemo() const
+{
+	const uint32_t value = this->GetInput();
+
+	const uint32_t output = this->Calculate(value);
+
+	std::cout << "\nNumber of Multiplications are: " << output << std::endl;
+}
