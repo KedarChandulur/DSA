@@ -17,6 +17,7 @@ add_executable(dsa_exec
     "${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/DES/Meet in the middle attack(MITM)/SDESMitm.cpp"
     "${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/DES/Simple DES - Decryption/SDESdecrypt.cpp"
     "${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/DES/Simple DES - Encryption/SDESencrypt.cpp"
+    ${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/Vigenere/FindKeyLength/FindKeyLength.cpp
 )
 
 target_include_directories(dsa_exec 
@@ -30,4 +31,6 @@ target_include_directories(dsa_exec
     "${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/DES/Meet in the middle attack(MITM)"
     "${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/DES/Simple DES - Decryption"
     "${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/DES/Simple DES - Encryption"
+    ${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/Vigenere/FindKeyLength
+    ${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/Vigenere/
 )
