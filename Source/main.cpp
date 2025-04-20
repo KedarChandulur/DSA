@@ -18,7 +18,11 @@
 #define QUICK_SORT_TEST       false
 #define SPLIT_MULTIPLY_TEST   false
 #define AES_TEST              false
-#define DES_MITM_TEST         true
+#define SDES_ENCRYPT_TEST     false
+#define SDES_DECRYPT_TEST     false
+#define SDES_MITM_TEST        true
+
+
 
 int main()
 {
@@ -115,17 +119,43 @@ int main()
     // --- AES example ---
 
 
-    // --- DES MITM example ---
+    // --- SDES encrypt example ---
 
-    #if DES_MITM_TEST
+    #if SDES_ENCRYPT_TEST
     {
-        SDES_MITM sDES_MITM;
+        SDES_Encrypt sDES_Encrypt(true);
+
+        sDES_Encrypt.RunDemo();
+    }
+    #endif
+
+    // --- SDES encrypt example ---
+
+
+    // --- SDES decrypt example ---
+
+    #if SDES_DECRYPT_TEST
+    {
+        SDES_Decrypt sDES_Decrypt(true);
+
+        sDES_Decrypt.RunDemo();
+    }
+    #endif
+
+    // --- SDES decrypt example ---
+
+
+    // --- SDES MITM example ---
+
+    #if SDES_MITM_TEST
+    {
+        SDES_MITM sDES_MITM(true);
 
         sDES_MITM.RunDemo();
     }
     #endif
 
-    // --- DES MITM example ---
+    // --- SDES MITM example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
