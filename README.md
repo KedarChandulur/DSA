@@ -27,7 +27,7 @@ To run:
 ```bash
 ./dsa_exec
 ```
-Make sure the appropriate test macro is enabled in main.cpp before building.
+**Make sure the appropriate test macro is enabled in main.cpp before building.**
 
 ## Why This Repo?
 This isn’t just a collection of throwaway code for interview prep. It’s structured with reusability and clarity in mind—minimal main functions in logic files, encapsulated class designs, and clean integration with CMake to keep it platform-friendly.
