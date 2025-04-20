@@ -25,11 +25,12 @@ void MinNoOfBills::internalFindMinDenomination(const int target, const std::vect
 		if (denominations[i] <= target)
 		{
 			temp = denominations[i]; // temp holds max denomination
+
+            solution.emplace_back(temp); // pushing max denomination
+
 			break;
 		}
 	}
-
-	solution.emplace_back(temp); // pushing max denomination
 
 	temp = target - temp; // temp Finds and hold next target
 
@@ -42,6 +43,17 @@ void MinNoOfBills::internalFindMinDenomination(const int target, const std::vect
 const std::vector<int> MinNoOfBills::FindMinDenomination(const int target, const std::vector<int>& denominations) const
 {
 	std::vector<int> denominationsCopy(denominations);
+
+    for(int i = 0; i < denominationsCopy.size();)
+    {
+        if(denominationsCopy[i] > target)
+        {
+            denominationsCopy.erase(denominationsCopy.begin() + i);
+            continue;
+        }
+
+        ++i;
+    }
 	
 	std::sort(denominationsCopy.begin(), denominationsCopy.end(), std::greater<int>());
 
@@ -51,6 +63,23 @@ const std::vector<int> MinNoOfBills::FindMinDenomination(const int target, const
 	internalFindMinDenomination(target, denominationsCopy, solution);
 
 	return solution;
+}
+
+bool MinNoOfBills::ValidateSolution(const int target, const std::vector<int>& solution) const
+{
+    int tempTarget = 0;
+    
+    for(const int value : solution)
+    {
+        tempTarget += value;
+
+        if(tempTarget == target)
+        {
+            break;
+        }
+    }
+
+    return tempTarget == target;
 }
 
 const bool MinNoOfBills::GetInput(std::vector<int>& denominations, int& target) const
@@ -110,4 +139,36 @@ const bool MinNoOfBills::GetInput(std::vector<int>& denominations, int& target) 
     }
 
     return true;
+}
+
+void MinNoOfBills::RunDemo() const
+{
+    int target = 122;
+    std::vector<int> denomination;
+    
+    if(this->GetInput(denomination, target))
+    {
+        const std::vector<int> solution = this->FindMinDenomination(target, denomination);
+
+        if(ValidateSolution(target, solution))
+        {
+            std::cout << "\nMinimum number bills required: " << solution.size() << std::endl;
+            std::cout << "Following is minimal number of bills for " << target << ": ";
+            
+            for (int i = 0; i < solution.size(); i++)
+            {
+                std::cout << solution[i] << " ";
+            }
+        
+            std::cout << std::endl;
+        }
+        else
+        {
+            std::cout << "Can't get to the exact target based on the given denominations.\n";
+        }
+    }
+    else
+    {
+        std::cout << "\nMin No Of Bills program failed\n";
+    }
 }

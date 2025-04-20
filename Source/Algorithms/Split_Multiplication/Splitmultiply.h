@@ -17,4 +17,6 @@ public:
     const int64_t Calculate(const int64_t x, const int64_t y, const int64_t n) const;
 
     void GetInput(int64_t& x, int64_t& y) const;
+    
+    void RunDemo() const;
 };

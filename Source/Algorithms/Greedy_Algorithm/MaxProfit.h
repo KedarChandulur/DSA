@@ -22,6 +22,8 @@ public:
 
     void PrintMatrix(const std::vector<std::vector<uint32_t>>& arr, const char* message, uint32_t rows = 0, uint32_t cols = 0) const;
 
+    void RunDemo();
+
 private:
     uint32_t m_rows;
     uint32_t m_cols;

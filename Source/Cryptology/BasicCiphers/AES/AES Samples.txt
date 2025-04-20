@@ -1,6 +1,6 @@
 Encryption/Decrypt is based on AES-128 (AES-128 uses a 128-bit key length to encrypt and decrypt a block of messages.)
 
-Example input: Input is hard coded in main function.
+Example input: Input is hard coded.
 
 Sample Plaintext Buffer = 0x32, 0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30, 0x8d, 0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34.
 

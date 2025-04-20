@@ -1,12 +1,17 @@
 //FindKeyLength.cpp
 #include <iostream>
+#include "FindKeyLength.h"
+#include "VigenereConstants.h"
 
-int main()
+using namespace VigenereConstants;
+
+FindKeyLength_Vigenere::FindKeyLength_Vigenere()
 {
-	const char* cipherText = "QHDLXNQLYNGAIGWBCERJFEARNIBKXUSVGZXKYNPXXTKGAATZRQCRFYIDCCLYXHUQXEIXFAFGEAMMALYRGAYXQMTGACDJSYRTLEXUVRVIYFFEGXFKOYSPHGBBYTRESOXUNTXXAKLUAWYDINAAWCZWIFVMCROIUCEIFJYDJAYZJBEOTMUSGAGAYYQNIPTFPYMCBOYDYYSVGWDOJTBZLMFBYJXLQCUDRRIGMIUYWMQUUFRPCZQHTVJOUJSMNRVQQZEJYLACNHRFCPTFENZYEJCLYMBQUCGUMYQDBUAWLQTMOAXCZJBEABHQJYEAMQQDNIRLNTUINRMCYUJAQTZQMGOEXUDEONQPIDBXWNKNIEUNQMBQDUFGXLFXYBVKNTEZCBFJGJUTVHHMBWOZIFQNCTLMBQELYVGNTUHIAXNQUHSROYZJCEFUIACVOBFVAEGBBHGNEIMOHIYRIOZQ";
-	const uint16_t ciphertextLength = 460;
-	const uint16_t maxDisplacement = 14;
+	std::cout << "\nWelcome to Find Key Length Vigenere Program\n" << std::endl;
+}
 
+void FindKeyLength_Vigenere::RunDemo() const
+{
 	uint16_t maxCoincidenceCount = 0;
 	uint16_t expectedDisplacementValue = 0;
 
@@ -36,6 +41,4 @@ int main()
 	}
 
 	printf("\nMax Coincidence Count %hu at Displacement %hu\n", maxCoincidenceCount, expectedDisplacementValue);
-
-	return 0;
 }

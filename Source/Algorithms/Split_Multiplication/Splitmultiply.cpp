@@ -70,3 +70,15 @@ void Splitmultiply::GetInput(int64_t& x, int64_t& y) const
     
 	scanf_s("%lld %lld", &x, &y);
 }
+
+void Splitmultiply::RunDemo() const
+{
+	int64_t x = 0;
+	int64_t y = 0;
+
+	this->GetInput(x, y);
+
+	const int64_t result = this->Calculate(x, y, this->GetDigits(x, y));
+
+	std::cout << "\nProduct of x and y: " << result << "\n";
+}

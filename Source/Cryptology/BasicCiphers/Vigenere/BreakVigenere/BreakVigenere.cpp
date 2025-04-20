@@ -14,19 +14,18 @@
 #include <sstream>
 #include <cstring>
 
-struct MyStruct
+#include "BreakVigenere.h"
+#include "VigenereConstants.h"
+
+using namespace VigenereConstants;
+
+BreakVigenere::BreakVigenere()
+	: position(0), result("\0")
 {
-	uint16_t position = 0;
-	std::string result = "\0";
-};
+	std::cout << "\nWelcome to Break Vigenere Program\n" << std::endl;
+}
 
-static MyStruct myStruct;
-static const uint16_t maxAlphabet = 26;
-static const uint16_t startingAlphabet = 65;
-static const double englishFrequencies[maxAlphabet] = { 0.082, 0.015, 0.028, 0.043, 0.127, 0.022, 0.020, 0.061, 0.070, 0.002, 0.008, 0.040, 0.024,
-														0.067, 0.075, 0.019, 0.001, 0.060, 0.063, 0.091, 0.028, 0.010, 0.023, 0.001, 0.020, 0.001 };
-
-void ReadFile(std::string& cipherTextStringRef)
+void BreakVigenere::ReadFile(std::string& cipherTextStringRef) const
 {
 	std::ifstream myfile("vigenereciphertext.txt");
 
@@ -43,7 +42,7 @@ void ReadFile(std::string& cipherTextStringRef)
 	else
 	{
 		//File not found setting default value.
-		cipherTextStringRef = "QHDLXNQLYNGAIGWBCERJFEARNIBKXUSVGZXKYNPXXTKGAATZRQCRFYIDCCLYXHUQXEIXFAFGEAMMALYRGAYXQMTGACDJSYRTLEXUVRVIYFFEGXFKOYSPHGBBYTRESOXUNTXXAKLUAWYDINAAWCZWIFVMCROIUCEIFJYDJAYZJBEOTMUSGAGAYYQNIPTFPYMCBOYDYYSVGWDOJTBZLMFBYJXLQCUDRRIGMIUYWMQUUFRPCZQHTVJOUJSMNRVQQZEJYLACNHRFCPTFENZYEJCLYMBQUCGUMYQDBUAWLQTMOAXCZJBEABHQJYEAMQQDNIRLNTUINRMCYUJAQTZQMGOEXUDEONQPIDBXWNKNIEUNQMBQDUFGXLFXYBVKNTEZCBFJGJUTVHHMBWOZIFQNCTLMBQELYVGNTUHIAXNQUHSROYZJCEFUIACVOBFVAEGBBHGNEIMOHIYRIOZQ";
+		cipherTextStringRef = cipherText;
 		
 		//printf("Error: Unable to open file :(\n");
 		//printf("To get the vigenereciphertext.txt file correctly open and to be read,\n");
@@ -56,12 +55,12 @@ void ReadFile(std::string& cipherTextStringRef)
 	}
 }
 
-const size_t GetKeyLength(const char* pa_CipherText)
+const size_t BreakVigenere::GetKeyLength(const char* pa_CipherText) const
 {
 	return strlen(pa_CipherText);
 }
 
-void GetDisplacement(uint16_t& expectedDisplacementValue, const char* cipherTextString, const uint16_t maxDisplacement, const size_t ciphertextLength)
+void BreakVigenere::GetDisplacement(uint16_t& expectedDisplacementValue, const char* cipherTextString, const uint16_t maxDisplacement, const size_t ciphertextLength) const
 {
 	uint16_t maxCoincidenceCount = 0;
 	uint16_t coincidenceCount = 0;
@@ -86,58 +85,58 @@ void GetDisplacement(uint16_t& expectedDisplacementValue, const char* cipherText
 	}
 }
 
-void GetKeyword(const uint16_t expectedDisplacementValue, const char* cipherTextString, const size_t cipherTextLength)
+void BreakVigenere::GetKeyword(const uint16_t expectedDisplacementValue, const char* cipherTextString, const size_t cipherTextLength)
 {
 	for (uint16_t displacementIndex = 0; displacementIndex < expectedDisplacementValue; displacementIndex++)
 	{
-		double frequency_W[maxAlphabet] = { 0.0 };
+		double frequency_W[maxAlphabets] = { 0.0 };
 		uint16_t displacement = displacementIndex;
 		uint16_t counter_D = 0;
 
 		while (displacement < cipherTextLength)
 		{
-			++frequency_W[cipherTextString[displacement] - startingAlphabet];
+			++frequency_W[cipherTextString[displacement] - startingAlphabetIndex];
 			displacement += expectedDisplacementValue;
 			++counter_D;
 		}
 
-		for (uint16_t fIndex = 0; fIndex < maxAlphabet; fIndex++)
+		for (uint16_t fIndex = 0; fIndex < maxAlphabets; fIndex++)
 		{
 			frequency_W[fIndex] = frequency_W[fIndex] / counter_D;
 		}
 
-		double dotproductArray[maxAlphabet] = { 0.0 };
+		double dotproductArray[maxAlphabets] = { 0.0 };
 		double dotproduct = 0.0;
 
-		for (uint16_t i = 0; i < maxAlphabet; i++)
+		for (uint16_t i = 0; i < maxAlphabets; i++)
 		{
-			for (uint16_t j = 0; j < maxAlphabet; j++)
+			for (uint16_t j = 0; j < maxAlphabets; j++)
 			{
-				dotproduct += frequency_W[(j + i) % maxAlphabet] * englishFrequencies[j];
+				dotproduct += frequency_W[(j + i) % maxAlphabets] * englishFrequencies[j];
 			}
 			dotproductArray[i] = dotproduct;
 			dotproduct = 0.0;
 		}
 
-		for (uint16_t dIndex = 0; dIndex < maxAlphabet; dIndex++)
+		for (uint16_t dIndex = 0; dIndex < maxAlphabets; dIndex++)
 		{
 			if (dotproduct < dotproductArray[dIndex])
 			{
 				dotproduct = dotproductArray[dIndex];
-				myStruct.position = dIndex;
+				this->position = dIndex;
 			}
 		}
 
-		char temp = startingAlphabet + myStruct.position;
-		myStruct.result += temp;
-		myStruct.position = 0;
+		char temp = startingAlphabetIndex + this->position;
+		this->result += temp;
+		this->position = 0;
 	}
 
 	printf("Key Length: %hu\n", expectedDisplacementValue);
-	printf("Key: %s\n", myStruct.result.c_str());
+	printf("Key: %s\n", this->result.c_str());
 }
 
-int main()
+void BreakVigenere::RunDemo()
 {
 	std::string cipherTextString;
 
@@ -150,6 +149,4 @@ int main()
 	GetDisplacement(expectedDisplacementValue, cipherTextString.c_str(), maxDisplacement, ciphertextLength);
 
 	GetKeyword(expectedDisplacementValue, cipherTextString.c_str(), ciphertextLength);
-
-	return 0;
 }

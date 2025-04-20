@@ -8,13 +8,27 @@
 #include "MinNoOfBills.h"
 #include "BasicNumbersSort.h"
 #include "Splitmultiply.h"
+#include "AESEncryptRound.h"
+#include "SDESMitm.h"
+#include "BreakVigenere.h"
+#include "FindKeyLength.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
-#define MAX_PROFIT_TEST false
-#define MIN_NO_OF_BILLS_TEST false
-#define QUICK_SORT_TEST false
-#define SPLIT_MULTIPLY_TEST true
+
+#define MAX_PROFIT_TEST       false
+#define MIN_NO_OF_BILLS_TEST  false
+
+#define QUICK_SORT_TEST       false
+#define SPLIT_MULTIPLY_TEST   false
+
+#define AES_TEST              false
+#define SDES_ENCRYPT_TEST     true
+#define SDES_DECRYPT_TEST     false
+#define SDES_MITM_TEST        false
+
+#define BREAK_VIGENERE_TEST   false
+#define FIND_KEY_LENGTH_TEST  false
 
 int main()
 {
@@ -26,11 +40,7 @@ int main()
     {
         CatalanTopDown catalanTopDown;
 
-	    const uint32_t value = catalanTopDown.GetInput();
-
-	    const uint32_t output = catalanTopDown.Calculate(value);
-
-	    std::cout << "\nNumber of Multiplications are: " << output << std::endl;
+        catalanTopDown.RunDemo();
     }
     #endif
 
@@ -43,17 +53,7 @@ int main()
     {
         CatalanMemoized catalanMemoized;
 
-	    int32_t* arr = nullptr;
-	    uint32_t value;
-
-	    catalanMemoized.GetInput(arr, value);
-
-	    value = catalanMemoized.Calculate(value, arr);
-
-	    std::cout << "\nNumber of Multiplications are: " << value << std::endl;
-
-	    delete[] arr;
-	    arr = nullptr;
+	    catalanMemoized.RunDemo();
     }
     #endif
 
@@ -66,20 +66,7 @@ int main()
     {
         MaxProfit maxProfit;
 
-        std::vector<std::vector<uint32_t>> arr;
-
-        if(maxProfit.GetInput(arr))
-        {
-            maxProfit.PrintMatrix(arr, "Original Matrix");
-
-            const uint32_t maximumProfit = maxProfit.Calculate(arr);
-    
-            std::cout << std::endl << "Maximum Profit: " << maximumProfit << std::endl;
-        }
-        else
-        {
-            std::cout << "\nMax profit program failed\n";
-        }
+        maxProfit.RunDemo();
     }
     #endif
 
@@ -92,27 +79,7 @@ int main()
     {
         MinNoOfBills minNoOfBills;
 
-        int target = 122;
-        std::vector<int> denomination;
-
-        if(minNoOfBills.GetInput(denomination, target))
-        {
-            const std::vector<int> solution = minNoOfBills.FindMinDenomination(target, denomination);
-    
-            std::cout << "\nMinimum number bills required: " << solution.size() << std::endl;
-            std::cout << "Following is minimal number of bills for " << target << ": ";
-            
-            for (int i = 0; i < solution.size(); i++)
-            {
-                std::cout << solution[i] << " ";
-            }
-        
-            std::cout << std::endl;
-        }
-        else
-        {
-            std::cout << "\nMin No Of Bills program failed\n";
-        }
+        minNoOfBills.RunDemo();
     }
     #endif
 
@@ -125,60 +92,102 @@ int main()
     {
         BasicNumbersSort basicNumbersSort;
 
-	    int32_t* A = nullptr;
-	    int32_t n = 0;
-
-	    basicNumbersSort.GetInput(A, n);
-
-	    assert(A != nullptr);
-
-	    printf("\nInput:\n");
-
-	    for (int i = 0; i < n; ++i)
-	    {
-	    	printf("%d ", A[i]);
-	    }
-
-	    printf("\n");
-    
-	    basicNumbersSort.QuickSort(A, n);
-
-	    printf("\nOutput:\n");
-
-	    for (int i = 0; i < n; ++i)
-	    {
-	    	printf("%d ", A[i]);
-	    }
-
-	    printf("\n");
-
-	    delete[] A;
-	    A = nullptr;
+	    basicNumbersSort.RunDemo();
     }
     #endif
 
     // --- Quick Sort example ---
 
 
-    // --- Quick Sort example ---
+    // --- Split Multiply example ---
 
     #if SPLIT_MULTIPLY_TEST
     {
         Splitmultiply splitMultiply;
 
-        int64_t x = 0;
-        int64_t y = 0;
-    
-        splitMultiply.GetInput(x, y);
-    
-        const int64_t result = splitMultiply.Calculate(x, y, splitMultiply.GetDigits(x, y));
-    
-        std::cout << "\nProduct of x and y: " << result << "\n";
+        splitMultiply.RunDemo();
     }
     #endif
     
-    // --- Quick Sort example ---
+    // --- Split Multiply example ---
 
+
+    // --- AES example ---
+
+    #if AES_TEST
+    {
+        AESEncryptRound aesEncryptRound;
+   
+        aesEncryptRound.RunDemo();
+    }
+    #endif
+
+    // --- AES example ---
+
+
+    // --- SDES encrypt example ---
+
+    #if SDES_ENCRYPT_TEST
+    {
+        SDES_Encrypt sDES_Encrypt(true);
+
+        sDES_Encrypt.RunDemo();
+    }
+    #endif
+
+    // --- SDES encrypt example ---
+
+
+    // --- SDES decrypt example ---
+
+    #if SDES_DECRYPT_TEST
+    {
+        SDES_Decrypt sDES_Decrypt(true);
+
+        sDES_Decrypt.RunDemo();
+    }
+    #endif
+
+    // --- SDES decrypt example ---
+
+
+    // --- SDES MITM example ---
+
+    #if SDES_MITM_TEST
+    {
+        SDES_MITM sDES_MITM(true);
+
+        sDES_MITM.RunDemo();
+    }
+    #endif
+
+    // --- SDES MITM example ---
+
+
+    // --- Break Vigenere example ---
+
+    #if BREAK_VIGENERE_TEST
+    {
+        BreakVigenere breakVigenere;
+
+        breakVigenere.RunDemo();
+    }
+    #endif
+
+    // --- Break Vigenere example ---
+
+
+    // --- Find Key Length example ---
+
+    #if FIND_KEY_LENGTH_TEST
+    {
+        FindKeyLength_Vigenere findKeyLength_Vigenere;
+
+        findKeyLength_Vigenere.RunDemo();
+    }
+    #endif
+
+    // --- Find Key Length example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
