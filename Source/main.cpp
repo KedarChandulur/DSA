@@ -25,9 +25,9 @@
 #define AES_TEST              false
 #define SDES_ENCRYPT_TEST     false
 #define SDES_DECRYPT_TEST     false
-#define SDES_MITM_TEST        false
+#define SDES_MITM_TEST        true
 
-#define BREAK_VIGENERE_TEST   true
+#define BREAK_VIGENERE_TEST   false
 #define FIND_KEY_LENGTH_TEST  false
 
 int main()
