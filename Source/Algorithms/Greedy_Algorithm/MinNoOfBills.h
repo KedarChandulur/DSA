@@ -18,6 +18,8 @@ public:
 
     void RunDemo() const;
 
+    bool ValidateSolution(const int target, const std::vector<int>& solution) const;
+
 private:
     void internalFindMinDenomination(const int target, const std::vector<int>& denominations, std::vector<int>& solution) const;
 };
