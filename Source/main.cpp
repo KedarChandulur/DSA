@@ -10,19 +10,24 @@
 #include "Splitmultiply.h"
 #include "AESEncryptRound.h"
 #include "SDESMitm.h"
+#include "FindKeyLength.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
+
 #define MAX_PROFIT_TEST       false
 #define MIN_NO_OF_BILLS_TEST  false
+
 #define QUICK_SORT_TEST       false
 #define SPLIT_MULTIPLY_TEST   false
+
 #define AES_TEST              false
 #define SDES_ENCRYPT_TEST     false
 #define SDES_DECRYPT_TEST     false
-#define SDES_MITM_TEST        true
+#define SDES_MITM_TEST        false
 
-
+#define BREAK_VIGENERE_TEST   false
+#define FIND_KEY_LENGTH_TEST  true
 
 int main()
 {
@@ -156,6 +161,30 @@ int main()
     #endif
 
     // --- SDES MITM example ---
+
+
+    // --- Break Vigenere example ---
+
+    #if BREAK_VIGENERE_TEST
+    {
+
+    }
+    #endif
+
+    // --- Break Vigenere example ---
+
+
+    // --- Find Key Length example ---
+
+    #if FIND_KEY_LENGTH_TEST
+    {
+        FindKeyLength_Vigenere findKeyLength_Vigenere;
+
+        findKeyLength_Vigenere.RunDemo();
+    }
+    #endif
+
+    // --- Find Key Length example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
