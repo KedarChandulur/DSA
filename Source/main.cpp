@@ -10,6 +10,7 @@
 #include "Splitmultiply.h"
 #include "AESEncryptRound.h"
 #include "SDESMitm.h"
+#include "BreakVigenere.h"
 #include "FindKeyLength.h"
 
 #define CATALAN_TOP_DOWN_TEST false
@@ -26,8 +27,8 @@
 #define SDES_DECRYPT_TEST     false
 #define SDES_MITM_TEST        false
 
-#define BREAK_VIGENERE_TEST   false
-#define FIND_KEY_LENGTH_TEST  true
+#define BREAK_VIGENERE_TEST   true
+#define FIND_KEY_LENGTH_TEST  false
 
 int main()
 {
@@ -167,7 +168,9 @@ int main()
 
     #if BREAK_VIGENERE_TEST
     {
+        BreakVigenere breakVigenere;
 
+        breakVigenere.RunDemo();
     }
     #endif
 
