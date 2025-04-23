@@ -12,6 +12,7 @@
 #include "SDESMitm.h"
 #include "BreakVigenere.h"
 #include "FindKeyLength.h"
+#include "Queue2Stacks.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
@@ -29,6 +30,8 @@
 
 #define BREAK_VIGENERE_TEST   false
 #define FIND_KEY_LENGTH_TEST  false
+
+#define QUEUE_TWO_STACKS      false
 
 int main()
 {
@@ -188,6 +191,19 @@ int main()
     #endif
 
     // --- Find Key Length example ---
+
+
+    // --- Queue two stacks example ---
+
+    #if QUEUE_TWO_STACKS
+    {
+        Queue2Stacks<int> queue2Stacks;
+
+        queue2Stacks.RunDemo();
+    }
+    #endif
+
+    // --- Queue two stacks example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
