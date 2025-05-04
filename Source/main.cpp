@@ -12,6 +12,7 @@
 #include "SDESMitm.h"
 #include "BreakVigenere.h"
 #include "FindKeyLength.h"
+#include "CircularQueue.h"
 #include "Queue2Stacks.h"
 
 #define CATALAN_TOP_DOWN_TEST false
@@ -24,13 +25,14 @@
 #define SPLIT_MULTIPLY_TEST   false
 
 #define AES_TEST              false
-#define SDES_ENCRYPT_TEST     true
+#define SDES_ENCRYPT_TEST     false
 #define SDES_DECRYPT_TEST     false
 #define SDES_MITM_TEST        false
 
 #define BREAK_VIGENERE_TEST   false
 #define FIND_KEY_LENGTH_TEST  false
 
+#define CIRCULAR_QUEUE        true
 #define QUEUE_TWO_STACKS      false
 
 int main()
@@ -191,6 +193,20 @@ int main()
     #endif
 
     // --- Find Key Length example ---
+
+    // --- Circular Queue example ---
+
+    #if CIRCULAR_QUEUE
+    {
+        MyCircularQueue* obj = new MyCircularQueue(2);
+
+        obj->RunDemo();
+
+        delete obj;
+    }
+    #endif
+
+    // --- Circular Queue example ---
 
 
     // --- Queue two stacks example ---
