@@ -12,6 +12,7 @@
 #include "SDESMitm.h"
 #include "BreakVigenere.h"
 #include "FindKeyLength.h"
+#include "CircularDeque.h"
 #include "CircularQueue.h"
 #include "Queue2Stacks.h"
 
@@ -32,7 +33,8 @@
 #define BREAK_VIGENERE_TEST   false
 #define FIND_KEY_LENGTH_TEST  false
 
-#define CIRCULAR_QUEUE        true
+#define CIRCULAR_DEQUE        true
+#define CIRCULAR_QUEUE        false
 #define QUEUE_TWO_STACKS      false
 
 int main()
@@ -198,16 +200,25 @@ int main()
 
     #if CIRCULAR_QUEUE
     {
-        MyCircularQueue* obj = new MyCircularQueue(2);
+        MyCircularQueue myCircularQueue(2);
 
-        obj->RunDemo();
-
-        delete obj;
+        myCircularQueue.RunDemo();
     }
     #endif
 
     // --- Circular Queue example ---
 
+    // --- Circular Deque example ---
+
+    #if CIRCULAR_DEQUE
+    {
+        MyCircularDeque myCircularDeque(4);
+
+        myCircularDeque.RunDemo();
+    }
+    #endif
+
+    // --- Circular Deque example ---
 
     // --- Queue two stacks example ---
 
