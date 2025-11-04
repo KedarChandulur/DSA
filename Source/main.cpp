@@ -15,6 +15,8 @@
 #include "CircularDeque.h"
 #include "CircularQueue.h"
 #include "Queue2Stacks.h"
+#include "DFS.h"
+#include "BFS.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
@@ -33,9 +35,12 @@
 #define BREAK_VIGENERE_TEST   false
 #define FIND_KEY_LENGTH_TEST  false
 
-#define CIRCULAR_DEQUE        true
+#define CIRCULAR_DEQUE        false
 #define CIRCULAR_QUEUE        false
 #define QUEUE_TWO_STACKS      false
+
+#define DEPTH_FIRST_SEARCH    true
+#define BREADTH_FIRST_SEARCH  true
 
 int main()
 {
@@ -231,6 +236,30 @@ int main()
     #endif
 
     // --- Queue two stacks example ---
+
+    // --- Depth First Search example ---
+
+    #if DEPTH_FIRST_SEARCH
+    {
+        DFS dfs;
+
+        dfs.RunDemo();
+    }
+    #endif
+
+    // --- Depth First Search example ---
+
+    // --- Breadth First Search example ---
+
+    #if BREADTH_FIRST_SEARCH
+    {
+        BFS bfs;
+
+        bfs.RunDemo();
+    }
+    #endif
+
+    // --- Breadth First Search example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
