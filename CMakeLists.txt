@@ -21,6 +21,9 @@ add_executable(dsa_exec
     ${CMAKE_SOURCE_DIR}/Source/Cryptology/BasicCiphers/Vigenere/FindKeyLength/FindKeyLength.cpp
     ${CMAKE_SOURCE_DIR}/Source/Queue/CircularDeque/CircularDeque.cpp
     ${CMAKE_SOURCE_DIR}/Source/Queue/CircularQueue/CircularQueue.cpp
+    ${CMAKE_SOURCE_DIR}/Source/Data_Structures/Graphs/Traversal/GTA.cpp
+    ${CMAKE_SOURCE_DIR}/Source/Data_Structures/Graphs/Traversal/DFS.cpp
+    ${CMAKE_SOURCE_DIR}/Source/Data_Structures/Graphs/Traversal/BFS.cpp
 )
 
 target_include_directories(dsa_exec 
@@ -40,4 +43,5 @@ target_include_directories(dsa_exec
     ${CMAKE_SOURCE_DIR}/Source/Queue/CircularDeque/
     ${CMAKE_SOURCE_DIR}/Source/Queue/CircularQueue/
     ${CMAKE_SOURCE_DIR}/Source/Queue/TwoStacks/
+    ${CMAKE_SOURCE_DIR}/Source/Data_Structures/Graphs/Traversal/
 )
