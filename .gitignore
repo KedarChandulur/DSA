@@ -89,3 +89,9 @@ include/*
 lib/*
 bin/*
 test/test_runner
+
+# CMake
+out/
+
+# Visual studio
+.vs/
