@@ -15,8 +15,33 @@ This project is a growing collection of algorithmic and cryptographic implementa
 
 ## 🔨 Building and Running
 
-To compile:
+### Using Visual Studio:
 
+- Open Visual Studio.
+
+- Select "Open a local folder" and choose the root directory of this repository (where the CMakeLists.txt file is located).
+
+- Visual Studio will automatically detect the CMake configuration and configure the project.
+
+- Select your build target (e.g., DSA.exe) and build configuration (Debug or Release) from the top toolbar.
+
+- Click Build > Build All (or press F7).
+
+- Run the app!
+
+### Using Command Line (Platform Independent):
+
+#### Method 1
+- Open a terminal in the root directory of the project.
+
+- Generate the build files: cmake -B build
+
+- Compile the app: cmake --build build --config Release
+
+- Run the executable located in the build directory!
+
+#### Method 2
+To compile:
 ```bash
 mkdir build && cd build
 cmake ..
@@ -25,9 +50,11 @@ cmake --build .
 
 To run:
 ```bash
-./dsa_exec
+./DSA
 ```
 **Make sure the appropriate test macro is enabled in main.cpp before building.**
+
+---
 
 ## Why This Repo?
 This isn’t just a collection of throwaway code for interview prep. It’s structured with reusability and clarity in mind—minimal main functions in logic files, encapsulated class designs, and clean integration with CMake to keep it platform-friendly.
