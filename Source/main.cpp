@@ -35,12 +35,12 @@
 #define BREAK_VIGENERE_TEST   false
 #define FIND_KEY_LENGTH_TEST  false
 
+#define DEPTH_FIRST_SEARCH    false
+#define BREADTH_FIRST_SEARCH  false
+
 #define CIRCULAR_DEQUE        false
 #define CIRCULAR_QUEUE        false
-#define QUEUE_TWO_STACKS      false
-
-#define DEPTH_FIRST_SEARCH    true
-#define BREADTH_FIRST_SEARCH  true
+#define QUEUE_TWO_STACKS      true
 
 int main()
 {
@@ -201,6 +201,30 @@ int main()
 
     // --- Find Key Length example ---
 
+    // --- Depth First Search example ---
+
+    #if DEPTH_FIRST_SEARCH
+    {
+        DFS dfs;
+
+        dfs.RunDemo();
+    }
+    #endif
+
+    // --- Depth First Search example ---
+
+    // --- Breadth First Search example ---
+
+    #if BREADTH_FIRST_SEARCH
+    {
+        BFS bfs;
+
+        bfs.RunDemo();
+    }
+    #endif
+
+    // --- Breadth First Search example ---
+
     // --- Circular Queue example ---
 
     #if CIRCULAR_QUEUE
@@ -236,30 +260,6 @@ int main()
     #endif
 
     // --- Queue two stacks example ---
-
-    // --- Depth First Search example ---
-
-    #if DEPTH_FIRST_SEARCH
-    {
-        DFS dfs;
-
-        dfs.RunDemo();
-    }
-    #endif
-
-    // --- Depth First Search example ---
-
-    // --- Breadth First Search example ---
-
-    #if BREADTH_FIRST_SEARCH
-    {
-        BFS bfs;
-
-        bfs.RunDemo();
-    }
-    #endif
-
-    // --- Breadth First Search example ---
 
     std::cout << "\nDSA Program Complete..." << std::endl;
 
