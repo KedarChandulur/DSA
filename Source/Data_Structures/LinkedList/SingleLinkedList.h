@@ -8,11 +8,7 @@ struct ListNode
 	N data;
 	ListNode<N>* next;
 
-	ListNode(const N val)
-		: data(val), next(nullptr)
-	{
-	}
-
+	ListNode(const N val);
 	ListNode();
 	~ListNode() = default;
 };
@@ -20,6 +16,12 @@ struct ListNode
 template<typename N>
 inline ListNode<N>::ListNode()
 	: data{}, next(nullptr)
+{
+}
+
+template<typename N>
+inline ListNode<N>::ListNode(const N val)
+	: data(val), next(nullptr)
 {
 }
 
