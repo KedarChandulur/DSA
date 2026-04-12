@@ -14,6 +14,7 @@
 #include "FindKeyLength.h"
 #include "DFS.h"
 #include "BFS.h"
+#include "Flat2DArray.h"
 #include "SingleLinkedList.h"
 #include "CircularDeque.h"
 #include "CircularQueue.h"
@@ -39,7 +40,9 @@
 #define DEPTH_FIRST_SEARCH    false
 #define BREADTH_FIRST_SEARCH  false
 
-#define SINGLE_LINKED_LIST    true
+#define FLAT_2D_ARRAY         true
+
+#define SINGLE_LINKED_LIST    false
 
 #define CIRCULAR_DEQUE        false
 #define CIRCULAR_QUEUE        false
@@ -227,6 +230,18 @@ int main()
     #endif
 
     // --- Breadth First Search example ---
+
+    // --- Flat 2D Array example ---
+
+    #if FLAT_2D_ARRAY
+    {
+        Flat2DArray<int> arr;
+
+        arr.RunDemo();
+    }
+    #endif
+
+    // --- Flat 2D Array example ---
 
     // --- Single Linked List example ---
 
