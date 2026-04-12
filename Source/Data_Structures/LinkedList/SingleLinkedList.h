@@ -54,9 +54,9 @@ private:
 		PopFront = 2,
 		GetFront = 3,
 		Print = 4,
-		PushBack = 5,
-		PopBack = 6,
-		GetBack = 7
+		//PushBack = 5,
+		//PopBack = 6,
+		//GetBack = 7
 	};
 
 private:
@@ -177,6 +177,8 @@ inline void SingleLinkedList<T>::RunDemo()
 
 		const InputType inputType = static_cast<InputType>(type);
 
+		// For the demo im using only primitive data types
+		// Custom class will also work
 		T value{};
 
 		switch (inputType)
@@ -207,16 +209,18 @@ inline void SingleLinkedList<T>::RunDemo()
 			this->Print();
 			break;
 
-		case InputType::PushBack:
-			break;
+		//case InputType::PushBack:
+		//	break;
 
-		case InputType::PopBack:
-			break;
+		//case InputType::PopBack:
+		//	break;
 
-		case InputType::GetBack:
-			break;
+		//case InputType::GetBack:
+		//	break;
 
 		default:
+			std::cout << "Invalid query, enter your query again...";
+			--query;
 			break;
 		}
 
