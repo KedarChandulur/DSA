@@ -36,25 +36,20 @@ private:
     std::stack<T> output;
 };
 
-
-
-
-
-
 template <typename T>
-Queue2Stacks<T>::Queue2Stacks()
+inline Queue2Stacks<T>::Queue2Stacks()
 {
     std::cout << "\nWelcome to Queue two stacks Program\n" << std::endl;
 }
 
 template <typename T>
-void Queue2Stacks<T>::Enqueue(T data)
+inline void Queue2Stacks<T>::Enqueue(T data)
 {
     input.push(data);
 }
 
 template <typename T>
-void Queue2Stacks<T>::Dequeue()
+inline void Queue2Stacks<T>::Dequeue()
 {               
     if(output.empty())
     {           
@@ -70,7 +65,7 @@ void Queue2Stacks<T>::Dequeue()
 }
 
 template <typename T>
-T Queue2Stacks<T>::Front()
+inline T Queue2Stacks<T>::Front()
 {
     if(output.empty())
     {
@@ -81,7 +76,7 @@ T Queue2Stacks<T>::Front()
 }
 
 template <typename T>
-void Queue2Stacks<T>::Print()
+inline void Queue2Stacks<T>::Print()
 {
     if(output.empty())
     {
@@ -97,7 +92,7 @@ void Queue2Stacks<T>::Print()
 }
 
 template <typename T>
-void Queue2Stacks<T>::RefillOutBuffer()
+inline void Queue2Stacks<T>::RefillOutBuffer()
 {
     if(input.empty())
     {
@@ -112,7 +107,7 @@ void Queue2Stacks<T>::RefillOutBuffer()
 }
 
 template <typename T>
-void Queue2Stacks<T>::RunDemo()
+inline void Queue2Stacks<T>::RunDemo()
 {
     std::cout << "Enter your queries count: (Example: 10)\n";
 
@@ -155,6 +150,8 @@ void Queue2Stacks<T>::RunDemo()
                 this->Print();
                 break;
             default:
+                std::cout << "Invalid query, enter your query again...";
+                --query;
                 break;
         }
 
