@@ -12,11 +12,12 @@
 #include "SDESMitm.h"
 #include "BreakVigenere.h"
 #include "FindKeyLength.h"
+#include "DFS.h"
+#include "BFS.h"
+#include "SingleLinkedList.h"
 #include "CircularDeque.h"
 #include "CircularQueue.h"
 #include "Queue2Stacks.h"
-#include "DFS.h"
-#include "BFS.h"
 
 #define CATALAN_TOP_DOWN_TEST false
 #define CATALAN_MEMOIZED_TEST false
@@ -38,9 +39,11 @@
 #define DEPTH_FIRST_SEARCH    false
 #define BREADTH_FIRST_SEARCH  false
 
+#define SINGLE_LINKED_LIST    true
+
 #define CIRCULAR_DEQUE        false
 #define CIRCULAR_QUEUE        false
-#define QUEUE_TWO_STACKS      true
+#define QUEUE_TWO_STACKS      false
 
 int main()
 {
@@ -225,17 +228,17 @@ int main()
 
     // --- Breadth First Search example ---
 
-    // --- Circular Queue example ---
+    // --- Single Linked List example ---
 
-    #if CIRCULAR_QUEUE
+    #if SINGLE_LINKED_LIST
     {
-        MyCircularQueue myCircularQueue(2);
+        SingleLinkedList<int> list;
 
-        myCircularQueue.RunDemo();
+        list.RunDemo();
     }
     #endif
 
-    // --- Circular Queue example ---
+    // --- Single Linked List example ---
 
     // --- Circular Deque example ---
 
@@ -248,6 +251,18 @@ int main()
     #endif
 
     // --- Circular Deque example ---
+
+    // --- Circular Queue example ---
+
+    #if CIRCULAR_QUEUE
+    {
+        MyCircularQueue myCircularQueue(2);
+
+        myCircularQueue.RunDemo();
+    }
+    #endif
+
+    // --- Circular Queue example ---
 
     // --- Queue two stacks example ---
 
