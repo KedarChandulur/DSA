@@ -252,27 +252,6 @@ int main()
     {
         UnorderedHashMap<float, float> uHMap;
         uHMap.RunDemo();
-
-        //struct Something
-        //{
-        //    
-        //};
-
-        //auto somethingHasher = [](const Something& s) -> size_t
-        //    {
-        //        // hash the members of Something
-        //        // currently Something is empty so just return a constant
-        //        return 0;
-        //    };
-
-        ////UnorderedHashMap<int, int> intIntMap;
-        ////UnorderedHashMap<int, std::string> intStringMap;
-        ////UnorderedHashMap<std::string, std::string> stringStringMap;
-        //UnorderedHashMap<Something, int, RunTimeHandler<Something>>
-        //    smtStringMap(RunTimeHandler<Something>(somethingHasher));
-        //UnorderedHashMap<int, Something, RunTimeHandler<int>> 
-        //    StringsmtMap(RunTimeHandler<int>([](const int& i) -> size_t { return i * 2654435761ULL; })
-        //);
     }
     #endif
 

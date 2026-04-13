@@ -67,6 +67,54 @@ struct DefaultHasher
 	}
 };
 
+/*  Example use case:
+
+	// Something as Key, int as Value
+	auto smtHasher = [](const Something& s) -> size_t
+	{
+		size_t h = 0;
+		std::memcpy(&h, &s.id, sizeof(s.id));
+		h ^= h >> 33;
+		h *= 0xff51afd7ed558ccdULL;
+		return h;
+	};
+
+	struct Something
+	{
+	    int id;
+	    float x, y;
+	
+	    bool operator==(const Something& other) const
+	    {
+	        return id == other.id && x == other.x && y == other.y;
+	    }
+	};
+
+	inline void RunSomethingDemo()
+	{
+		UnorderedHashMap<Something, int, RunTimeHandler<Something>>
+		    smtStringMap(RunTimeHandler<Something>(smtHasher));
+
+		smtStringMap.InsertorUpdate({1, 0.5f, 1.0f}, 100);
+		smtStringMap.InsertorUpdate({2, 1.5f, 2.0f}, 200);
+		smtStringMap.Print();
+
+		int val = 0;
+		if (smtStringMap.Find({1, 0.5f, 1.0f}, val))
+		    std::cout << "\nFound: " << val;
+
+		// int as Key, Something as Value
+		UnorderedHashMap<int, Something> intSomethingMap;  // DefaultHasher<int>
+
+		intSomethingMap.InsertorUpdate(1, {10, 1.0f, 2.0f});
+		intSomethingMap.InsertorUpdate(2, {20, 3.0f, 4.0f});
+		intSomethingMap.Print();
+
+		Something found{};
+		if (intSomethingMap.Find(1, found))
+		    std::cout << "\nFound: " << found;
+	}
+*/
 template<typename R>
 struct RunTimeHandler
 {
