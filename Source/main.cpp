@@ -15,6 +15,7 @@
 #include "DFS.h"
 #include "BFS.h"
 #include "Flat2DArray.h"
+#include "UnorderedHashMap.h"
 #include "SingleLinkedList.h"
 #include "CircularDeque.h"
 #include "CircularQueue.h"
@@ -40,7 +41,9 @@
 #define DEPTH_FIRST_SEARCH    false
 #define BREADTH_FIRST_SEARCH  false
 
-#define FLAT_2D_ARRAY         true
+#define FLAT_2D_ARRAY         false
+
+#define UNORDERED_HASH_MAP    true
 
 #define SINGLE_LINKED_LIST    false
 
@@ -242,6 +245,38 @@ int main()
     #endif
 
     // --- Flat 2D Array example ---
+
+    // --- Unordered Hash Map example ---
+
+    #if UNORDERED_HASH_MAP
+    {
+        UnorderedHashMap<float, float> uHMap;
+        uHMap.RunDemo();
+
+        //struct Something
+        //{
+        //    
+        //};
+
+        //auto somethingHasher = [](const Something& s) -> size_t
+        //    {
+        //        // hash the members of Something
+        //        // currently Something is empty so just return a constant
+        //        return 0;
+        //    };
+
+        ////UnorderedHashMap<int, int> intIntMap;
+        ////UnorderedHashMap<int, std::string> intStringMap;
+        ////UnorderedHashMap<std::string, std::string> stringStringMap;
+        //UnorderedHashMap<Something, int, RunTimeHandler<Something>>
+        //    smtStringMap(RunTimeHandler<Something>(somethingHasher));
+        //UnorderedHashMap<int, Something, RunTimeHandler<int>> 
+        //    StringsmtMap(RunTimeHandler<int>([](const int& i) -> size_t { return i * 2654435761ULL; })
+        //);
+    }
+    #endif
+
+    // --- Unordered Hash Map example ---
 
     // --- Single Linked List example ---
 

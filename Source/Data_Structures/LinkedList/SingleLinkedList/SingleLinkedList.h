@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <utility>
 
 template <typename N>
 struct ListNode
@@ -8,8 +9,9 @@ struct ListNode
 	N data;
 	ListNode<N>* next;
 
-	ListNode(const N val);
 	ListNode();
+	ListNode(const N& val);
+	ListNode(N&& val);
 	~ListNode() = default;
 };
 
@@ -20,8 +22,14 @@ inline ListNode<N>::ListNode()
 }
 
 template<typename N>
-inline ListNode<N>::ListNode(const N val)
+inline ListNode<N>::ListNode(const N& val)
 	: data(val), next(nullptr)
+{
+}
+
+template<typename N>
+inline ListNode<N>::ListNode(N&& val)
+	: data(std::move(val)), next(nullptr)
 {
 }
 
@@ -35,13 +43,16 @@ public:
 	SingleLinkedList(const SingleLinkedList& other) = delete;
 	SingleLinkedList& operator=(const SingleLinkedList& other) = delete;
 
-	SingleLinkedList(SingleLinkedList&& other) = delete;
-	SingleLinkedList& operator=(SingleLinkedList&& other) = delete;
+	SingleLinkedList(SingleLinkedList&& other) noexcept;
+	SingleLinkedList& operator=(SingleLinkedList&& other) noexcept;
 
-	void PushFront(T val);
+	void PushFront(const T& val);
+	void PushFront(T&& val);
+
 	bool PopFront(T& val);
 	bool GetFrontValue(T& val) const;
 	ListNode<T>* GetHead();
+	const ListNode<T>* GetHead() const;
 
 	//void PushBack(T val);
 	//void PopBack();
@@ -91,9 +102,44 @@ inline SingleLinkedList<T>::~SingleLinkedList()
 }
 
 template<typename T>
-inline void SingleLinkedList<T>::PushFront(T val)
+inline SingleLinkedList<T>::SingleLinkedList(SingleLinkedList&& other) noexcept
+    : head(other.head)
+{
+    other.head = nullptr;
+}
+
+template<typename T>
+inline SingleLinkedList<T>& SingleLinkedList<T>::operator=(SingleLinkedList&& other) noexcept
+{
+	if (this != &other)
+	{
+		// Destroy existing nodes first
+		ListNode<T>* curr = head;
+		while (curr != nullptr)
+		{
+			ListNode<T>* deleteMe = curr;
+			curr = curr->next;
+			delete deleteMe;
+		}
+
+		head = other.head;
+		other.head = nullptr;
+	}
+	return *this;
+}
+
+template<typename T>
+inline void SingleLinkedList<T>::PushFront(const T& val)
 {
 	ListNode<T>* newNode = new ListNode<T>(val);
+	newNode->next = this->head;
+	this->head = newNode;
+}
+
+template<typename T>
+inline void SingleLinkedList<T>::PushFront(T&& val)
+{
+	ListNode<T>* newNode = new ListNode<T>(std::move(val));
 	newNode->next = this->head;
 	this->head = newNode;
 }
@@ -136,7 +182,13 @@ inline bool SingleLinkedList<T>::GetFrontValue(T& val) const
 }
 
 template<typename T>
-inline ListNode<T>* GetHead()
+inline ListNode<T>* SingleLinkedList<T>::GetHead()
+{
+	return this->head;
+}
+
+template<typename T>
+inline const ListNode<T>* SingleLinkedList<T>::GetHead() const
 {
 	return this->head;
 }
