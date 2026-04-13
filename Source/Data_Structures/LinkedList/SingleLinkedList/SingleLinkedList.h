@@ -41,6 +41,7 @@ public:
 	void PushFront(T val);
 	bool PopFront(T& val);
 	bool GetFrontValue(T& val) const;
+	ListNode<T>* GetHead();
 
 	//void PushBack(T val);
 	//void PopBack();
@@ -132,6 +133,12 @@ inline bool SingleLinkedList<T>::GetFrontValue(T& val) const
 	val = this->head->data;
 
 	return true;
+}
+
+template<typename T>
+inline ListNode<T>* GetHead()
+{
+	return this->head;
 }
 
 template<typename T>
