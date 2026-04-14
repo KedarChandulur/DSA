@@ -174,7 +174,7 @@ template<typename T>
 inline Flat2DArray<T>::Flat2DArray(const size_t _rowsCount, const size_t _colsCount)
 	: rows(_rowsCount), cols(_colsCount)
 {
-	dataArr.resize(_rowsCount, _colsCount);
+	this->UpdateAndResize(_rowsCount, _colsCount);
 }
 
 template<typename T>
