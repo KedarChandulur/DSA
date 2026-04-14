@@ -14,7 +14,8 @@ public:
     Queue2Stacks(Queue2Stacks&& other) = default;
     Queue2Stacks& operator=(Queue2Stacks&& other) = default;
 
-    void Enqueue(T data);
+    void Enqueue(const T& data);
+    void Enqueue(T&& data);
     bool Dequeue();
     bool Front(T& outFront);
 
@@ -43,9 +44,15 @@ inline Queue2Stacks<T>::Queue2Stacks()
 }
 
 template <typename T>
-inline void Queue2Stacks<T>::Enqueue(T data)
+inline void Queue2Stacks<T>::Enqueue(const T& data)
 {
     input.push(data);
+}
+
+template <typename T>
+inline void Queue2Stacks<T>::Enqueue(T&& data)
+{
+    input.push(std::move(data));
 }
 
 template <typename T>
@@ -124,13 +131,15 @@ inline void Queue2Stacks<T>::RunDemo()
         std::cin >> type;
         std::cout << "\n";
         
+        T value{};
+        T outVal{};
+
         const InputType inputType = static_cast<InputType>(type);
         
         switch(inputType)
         {
             case InputType::Enqueue:
                 std::cout << "What do you wanna enqueue: ";
-                T value{};
                 std::cin >> value;
                 this->Enqueue(value);
                 std::cout << "Successfully Enqueued: " << value;
@@ -141,7 +150,8 @@ inline void Queue2Stacks<T>::RunDemo()
                 std::cout << "Dequeue complete.";
                 break;
             case InputType::PrintFront:
-                std::cout << "Alright printing the Front element of the queue: " << this->Front();
+                if (this->Front(outVal))
+                    std::cout << "Alright printing the Front element of the queue: " << outVal;
                 break;
             default:
                 std::cout << "Invalid query, enter your query again...";
