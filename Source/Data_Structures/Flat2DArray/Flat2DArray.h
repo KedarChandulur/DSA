@@ -61,6 +61,9 @@ public:
 	*/
 	const T& Front() const;
 
+	void RemoveAt(const size_t rowIndex, const size_t colIndex);
+	void RemoveAt(const size_t flatIndex);
+
 	/*
 	*  Make sure you access elements which are initialized.
 	*  if you reserved memory then your elements might be
@@ -157,7 +160,8 @@ private:
 		ReserveRC = 13,
 		ResizeRC = 14,
 		UpdateFront = 15,
-		UpdateBack = 16
+		UpdateBack = 16,
+		RemoveAtRC = 17
 	};
 
 private:
@@ -170,6 +174,7 @@ template<typename T>
 inline Flat2DArray<T>::Flat2DArray(const size_t _rowsCount, const size_t _colsCount)
 	: rows(_rowsCount), cols(_colsCount)
 {
+	dataArr.resize(_rowsCount, _colsCount);
 }
 
 template<typename T>
@@ -187,12 +192,12 @@ inline void Flat2DArray<T>::UpdateAndReserve(const size_t newRowCount, const siz
 
 	const size_t newCapacity = this->rows * this->cols;
 
-	dataArr.reserve(newCapacity);
-
 	if (forceErase)
 	{
 		dataArr.clear();
 	}
+
+	dataArr.reserve(newCapacity);
 }
 
 template<typename T>
@@ -295,6 +300,31 @@ inline const T& Flat2DArray<T>::Front() const
 }
 
 template<typename T>
+inline void Flat2DArray<T>::RemoveAt(const size_t rowIndex, const size_t colIndex)
+{
+	const size_t flatIndex = GetFlatIndex(rowIndex, colIndex);
+
+	if (flatIndex >= dataArr.size() || rowIndex >= rows || colIndex >= cols)
+		throw std::out_of_range("Flat2DArray::at — index ("
+			+ std::to_string(rowIndex) + ", "
+			+ std::to_string(colIndex) + ") out of range. Size: "
+			+ std::to_string(dataArr.size()));
+
+	dataArr.erase(dataArr.begin() + flatIndex);
+}
+
+template<typename T>
+inline void Flat2DArray<T>::RemoveAt(const size_t flatIndex)
+{
+	if (flatIndex >= dataArr.size())
+		throw std::out_of_range("Flat2DArray::at — flat index "
+			+ std::to_string(flatIndex) + " out of range. Size: "
+			+ std::to_string(dataArr.size()));
+
+	dataArr.erase(dataArr.begin() + flatIndex);
+}
+
+template<typename T>
 inline void Flat2DArray<T>::Set(const size_t rowIndex, const size_t colIndex, const T& other)
 {
 	dataArr[GetFlatIndex(rowIndex, colIndex)] = other;
@@ -337,7 +367,7 @@ inline T& Flat2DArray<T>::at(std::size_t rowIndex, std::size_t colIndex)
 {
 	const size_t flatIndex = GetFlatIndex(rowIndex, colIndex);
 
-	if (flatIndex >= dataArr.size())
+	if (flatIndex >= dataArr.size() || rowIndex >= rows || colIndex >= cols)
 		throw std::out_of_range("Flat2DArray::at — index ("
 			+ std::to_string(rowIndex) + ", "
 			+ std::to_string(colIndex) + ") out of range. Size: "
@@ -351,7 +381,7 @@ inline const T& Flat2DArray<T>::at(std::size_t rowIndex, std::size_t colIndex) c
 {
 	const size_t flatIndex = GetFlatIndex(rowIndex, colIndex);
 
-	if (flatIndex >= dataArr.size())
+	if (flatIndex >= dataArr.size() || rowIndex >= rows || colIndex >= cols)
 		throw std::out_of_range("Flat2DArray::at — index ("
 			+ std::to_string(rowIndex) + ", "
 			+ std::to_string(colIndex) + ") out of range. Size: "
@@ -424,7 +454,8 @@ inline void Flat2DArray<T>::RunDemo()
 		std::cout << "           13 Reserve RC\n";
 		std::cout << "           14 Resize RC\n";
 		std::cout << "           15 Update Front\n";
-		std::cout << "           16 Update Back\n\n";
+		std::cout << "           16 Update Back\n";
+		std::cout << "           17 Remove At Pos\n\n";
 
 		int type;
 		std::cin >> type;
@@ -727,6 +758,20 @@ inline void Flat2DArray<T>::RunDemo()
 				std::cout << "\nCurrent back: " << this->Back();
 				break;
 
+			case InputType::RemoveAtRC:
+				std::cout << "\nEnter the row index: ";
+
+				rowPos = 0;
+				std::cin >> rowPos;
+
+				std::cout << "\nEnter the col index: ";
+
+				colPos = 0;
+				std::cin >> colPos;
+
+				this->RemoveAt(rowPos, colPos);
+				break;
+			
 			default:
 				std::cout << "Invalid query, enter your query again...";
 				--query;
