@@ -149,7 +149,6 @@ inline bool SingleLinkedList<T>::PopFront(T& val)
 {
 	if (!this->head)
 	{
-		val = T{};
 		return false;
 	}
 
