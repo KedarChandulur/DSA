@@ -54,6 +54,9 @@ public:
 	ListNode<T>* GetHead();
 	const ListNode<T>* GetHead() const;
 
+	template<typename Predicate>
+	bool RemoveIf(Predicate pred);
+
 	//void PushBack(T val);
 	//void PopBack();
 	//T GetBackValue() const;
@@ -189,6 +192,32 @@ template<typename T>
 inline const ListNode<T>* SingleLinkedList<T>::GetHead() const
 {
 	return this->head;
+}
+
+template<typename T>
+template<typename Predicate>
+inline bool SingleLinkedList<T>::RemoveIf(Predicate pred)
+{
+	ListNode<T>* curr = head;
+	ListNode<T>* prev = nullptr;
+
+	while (curr != nullptr)
+	{
+		if (pred(curr->data))
+		{
+			if (prev)
+				prev->next = curr->next;
+			else
+				head = curr->next;
+
+			curr->next = nullptr;
+			delete curr;
+			return true;
+		}
+		prev = curr;
+		curr = curr->next;
+	}
+	return false;
 }
 
 template<typename T>

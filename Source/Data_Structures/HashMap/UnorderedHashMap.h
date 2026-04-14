@@ -14,43 +14,26 @@ struct DefaultHasher
 	static_assert(
 		std::is_arithmetic<D>::value ||
 		std::is_invocable_r<size_t, std::hash<D>, const D&>::value,
-		"[DefaultHasher] Only primitive numeric types are supported. "
-		"Please use RuntimeHasher<T> and provide your own hash function."
+		"[DefaultHasher] Key type must be arithmetic or have a std::hash specialization. "
+		"For fully custom types without std::hash, use RuntimeHasher<T> and provide your own hash function."
 		);
 
 	size_t operator()(const D& key) const
 	{
 		if constexpr (std::is_arithmetic<D>::value)
 		{
-			/*From Wiki : https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
+			// Bit-mixing hash using MurmurHash3 finalizer constants.
+			// Copies the raw bytes of the primitive into a size_t,
+			// then applies three rounds of xor-shift + multiply to
+			// achieve strong avalanche (each output bit depends on every input bit).
+			// Constants 0xff51afd7ed558ccd and 0xc4ceb9fe1a85ec53 are the
+			// MurmurHash3 64-bit finalizer mix constants.
 
-			  The FNV-1a hash differs from the FNV-1 hash only by the order in which the multiply and XOR is performed:
-
-			  algorithm fnv-1a is
-			  hash := FNV_offset_basis
-
-			  for each byte_of_data to be hashed do
-				  hash := hash XOR byte_of_data
-				  hash := hash × FNV_prime
-
-			  return hash
-			  
-			  algorithm fnv-1 is
-			  hash := FNV_offset_basis
-
-			  for each byte_of_data to be hashed do
-			      hash := hash × FNV_prime
-			      hash := hash XOR byte_of_data
-
-			  return hash
-			*/
-
-			// Tier 1: custom FNV-1a mix for primitives
 			size_t hash = 0;
 			static_assert(sizeof(D) <= sizeof(size_t), "Type too large for default hash");
 			std::memcpy(&hash, &key, sizeof(D));
 
-			// FNV-1a style bit mix
+			// MurmurHash3 finalizer bit mix
 			hash ^= hash >> 33;
 			hash *= 0xff51afd7ed558ccdULL;
 			hash ^= hash >> 33;
@@ -165,9 +148,9 @@ public:
 	~UnorderedHashMap() = default;
 
 	void InsertorUpdate(const Key& key, const Value& value);
-	bool Find(const Key& key, Value& value);
+	bool Find(const Key& key, Value& value) const;
 	bool Remove(const Key& key);
-	const size_t GetHashIndex(const Key& key);
+	const size_t GetHashIndex(const Key& key) const;
 
 	void Rehash();
 	size_t GetElementCount() const;
@@ -239,7 +222,7 @@ inline void UnorderedHashMap<Key, Value, Hasher>::InsertorUpdate(const Key& key,
 }
 
 template<typename Key, typename Value, typename Hasher>
-inline bool UnorderedHashMap<Key, Value, Hasher>::Find(const Key& key, Value& value)
+inline bool UnorderedHashMap<Key, Value, Hasher>::Find(const Key& key, Value& value) const
 {
 	bool result = false;
 
@@ -265,50 +248,23 @@ inline bool UnorderedHashMap<Key, Value, Hasher>::Find(const Key& key, Value& va
 template<typename Key, typename Value, typename Hasher>
 inline bool UnorderedHashMap<Key, Value, Hasher>::Remove(const Key& key)
 {
-	bool result = false;
-
 	const size_t hashedIndex = GetHashIndex(key);
 
-	ListNode<MapData>* current = dataMap[hashedIndex].GetHead();
-
-	ListNode<MapData>* previous = nullptr;
-
-	while (current != nullptr)
-	{
-		if (current->data.key == key)
+	const bool removed = dataMap[hashedIndex].RemoveIf(
+		[&key](const MapData& data)
 		{
-			result = true;
-			break;
+			return data.key == key;
 		}
+	);
 
-		previous = current;
-		current = current->next;
-	}
-
-	if (current)
-	{
-		if (previous)
-		{
-			previous->next = current->next;
-			current->next = nullptr;
-
-			delete current;
-			current = nullptr;
-		}
-		else
-		{
-			MapData dummy;
-			dataMap[hashedIndex].PopFront(dummy);
-		}
-
+	if (removed)
 		--elementCount;
-	}
 
-	return result;
+	return removed;
 }
 
 template<typename Key, typename Value, typename Hasher>
-inline const size_t UnorderedHashMap<Key, Value, Hasher>::GetHashIndex(const Key& key)
+inline const size_t UnorderedHashMap<Key, Value, Hasher>::GetHashIndex(const Key& key) const
 {
 	return hasher(key) % dataMap.size();
 }
