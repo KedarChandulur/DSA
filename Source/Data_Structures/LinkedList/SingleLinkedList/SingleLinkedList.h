@@ -171,7 +171,6 @@ inline bool SingleLinkedList<T>::GetFrontValue(T& val) const
 {
 	if (!this->head)
 	{
-		val = T{};
 		return false;
 	}
 
