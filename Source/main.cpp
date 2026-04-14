@@ -17,6 +17,7 @@
 #include "Flat2DArray.h"
 #include "UnorderedHashMap.h"
 #include "SingleLinkedList.h"
+#include "DoublyLinkedList.h"
 #include "CircularDeque.h"
 #include "CircularQueue.h"
 #include "Queue2Stacks.h"
@@ -43,9 +44,10 @@
 
 #define FLAT_2D_ARRAY         false
 
-#define UNORDERED_HASH_MAP    true
+#define UNORDERED_HASH_MAP    false
 
 #define SINGLE_LINKED_LIST    false
+#define DOUBLY_LINKED_LIST    true
 
 #define CIRCULAR_DEQUE        false
 #define CIRCULAR_QUEUE        false
@@ -268,6 +270,18 @@ int main()
     #endif
 
     // --- Single Linked List example ---
+
+    // --- Doubly Linked List example ---
+
+    #if DOUBLY_LINKED_LIST
+    {
+        DoublyLinkedList<int> list;
+
+        list.RunDemo();
+    }
+    #endif
+
+    // --- Doubly Linked List example ---
 
     // --- Circular Deque example ---
 
