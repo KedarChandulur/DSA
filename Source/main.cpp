@@ -16,8 +16,9 @@
 #include "BFS.h"
 #include "Flat2DArray.h"
 #include "UnorderedHashMap.h"
-#include "SingleLinkedList.h"
 #include "DoublyLinkedList.h"
+#include "DoublyLinkedList_SP.h"
+#include "SingleLinkedList.h"
 #include "CircularDeque.h"
 #include "CircularQueue.h"
 #include "Queue2Stacks.h"
@@ -46,8 +47,9 @@
 
 #define UNORDERED_HASH_MAP    false
 
+#define DOUBLY_LINKED_LIST    false
+#define DOUBLY_LINKED_LIST_SP true
 #define SINGLE_LINKED_LIST    false
-#define DOUBLY_LINKED_LIST    true
 
 #define CIRCULAR_DEQUE        false
 #define CIRCULAR_QUEUE        false
@@ -259,18 +261,6 @@ int main()
 
     // --- Unordered Hash Map example ---
 
-    // --- Single Linked List example ---
-
-    #if SINGLE_LINKED_LIST
-    {
-        SingleLinkedList<int> list;
-
-        list.RunDemo();
-    }
-    #endif
-
-    // --- Single Linked List example ---
-
     // --- Doubly Linked List example ---
 
     #if DOUBLY_LINKED_LIST
@@ -282,6 +272,26 @@ int main()
     #endif
 
     // --- Doubly Linked List example ---
+
+    #if DOUBLY_LINKED_LIST_SP
+    {
+        DoublyLinkedList_SP<int> list;
+
+        list.RunDemo();
+    }
+    #endif
+
+    // --- Single Linked List example ---
+
+    #if SINGLE_LINKED_LIST
+    {
+        SingleLinkedList<int> list;
+
+        list.RunDemo();
+    }
+    #endif
+
+    // --- Single Linked List example ---
 
     // --- Circular Deque example ---
 
