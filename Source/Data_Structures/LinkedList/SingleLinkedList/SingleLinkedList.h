@@ -201,8 +201,12 @@ inline bool SingleLinkedList<T>::RemoveIf(Predicate pred)
 	ListNode<T>* curr = head;
 	ListNode<T>* prev = nullptr;
 
+	bool result = false;
+
 	while (curr != nullptr)
 	{
+		ListNode<T>* currNextCache = curr->next;
+
 		if (pred(curr->data))
 		{
 			if (prev)
@@ -212,12 +216,18 @@ inline bool SingleLinkedList<T>::RemoveIf(Predicate pred)
 
 			curr->next = nullptr;
 			delete curr;
-			return true;
+
+			result = true;
 		}
-		prev = curr;
-		curr = curr->next;
+		else
+		{
+			prev = curr;
+		}
+
+		curr = currNextCache;
 	}
-	return false;
+
+	return result;
 }
 
 template<typename T>
