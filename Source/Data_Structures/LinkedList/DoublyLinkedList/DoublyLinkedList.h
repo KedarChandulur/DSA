@@ -302,8 +302,12 @@ inline  bool DoublyLinkedList<TD>::RemoveIf(Predicate pred)
 {
 	DListNode<TD>* curr = head;
 
+	bool result = false;
+
 	while (curr != nullptr)
 	{
+		DListNode<TD>* currNextCache = curr->next;
+
 		if (pred(curr->data))
 		{
 			if (curr->prev)
@@ -330,13 +334,13 @@ inline  bool DoublyLinkedList<TD>::RemoveIf(Predicate pred)
 			delete curr;
 			curr = nullptr;
 
-			return true;
+			result = true;
 		}
 
-		curr = curr->next;
+		curr = currNextCache;
 	}
 
-	return false;
+	return result;
 }
 
 template<typename TD>
