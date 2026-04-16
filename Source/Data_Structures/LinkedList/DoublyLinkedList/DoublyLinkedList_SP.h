@@ -131,7 +131,6 @@ template<typename TDSP>
 inline DoublyLinkedList_SP<TDSP>::DoublyLinkedList_SP(DoublyLinkedList_SP&& other) noexcept
 	: head(std::move(other.head)), tail(other.tail)
 {
-	other.head = nullptr;
 	other.tail = nullptr;
 }
 
