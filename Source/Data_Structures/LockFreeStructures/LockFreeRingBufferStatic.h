@@ -12,13 +12,6 @@
 *  - Full compiler optimization and inlining
 *
 *  Limitation: SIZE must be a power of 2 and known at compile time.
-*  Memory constraint (<=m) must be manually verified:
-*    B1->B2 buffer(4) + sliding window(9) + B2 output buffer(4) = 17 bytes minimum.
-*    If m < 17, memory constraint is violated silently.
-*
-*  Current submission uses LockFreeRingBuffer (runtime version) instead,
-*  which correctly satisfies memory constraint for any m >= 16.
-*  This file is provided as a performance reference only.
 *
 *  One slot is intentionally left unused to distinguish full from empty:
 *    Empty : head == tail

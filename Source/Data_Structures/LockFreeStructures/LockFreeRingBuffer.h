@@ -9,8 +9,7 @@
 *  Single-Producer Single-Consumer (SPSC) lock-free ring buffer.
 *
 *  SIZE is now a runtime parameter passed to the constructor.
-*  This allows the buffer size to be calculated based on m at runtime
-*  to satisfy the memory constraint (<= m slots total across all buffers).
+*  This allows the buffer size to be calculated at runtime
 *
 *  Uses % for wrapping instead of & to support non-power-of-2 sizes.
 *
